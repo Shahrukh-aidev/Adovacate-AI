@@ -1,13 +1,22 @@
 from pinecone import Pinecone
 import requests
 
-# ✅ YOUR KEYS
-PINECONE_KEY = "pcsk_5TTMRy_Fd8QwDTPGV8K2iQeuroonvzAsMKUuptmEWMGTPruH3iRQ8hVxpPEnESCueYVQvF"
-GROQ_KEY     = "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"
+# Keys come from Railway environment variables
+PINECONE_KEY = os.environ.get("PINECONE_KEY", "pcsk_5TTMRy_Fd8QwDTPGV8K2iQeuroonvzAsMKUuptmEWMGTPruH3iRQ8hVxpPEnESCueYVQvF")
+GROQ_KEY     = os.environ.get("GROQ_KEY", "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")
+COHERE_KEY   = os.environ.get("COHERE_KEY", "your-cohere-key")
 
-# ✅ Initialize Pinecone
 pc = Pinecone(api_key=PINECONE_KEY)
-index = pc.Index("haq-laws")
+index = pc.Index("haq-law")
+co = cohere.Client(COHERE_KEY)
+
+def get_embedding(text):
+    response = co.embed(
+        texts=[text[:500]],
+        model="embed-english-light-v3.0",
+        input_type="search_query"
+    )
+    return response.embeddings[0]
 
 print("✅ HAQ Engine loaded — using local Ollama embeddings!")
 
