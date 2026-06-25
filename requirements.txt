@@ -1,5 +1,11 @@
-flask
-flask-cors
+gradio
 pinecone
 cohere
 requests
+reportlab
+python-docx
+gTTS
+pytesseract
+Pillow
+pdf2image
+pdfplumber
