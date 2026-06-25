@@ -4,7 +4,7 @@ import os
 import time
 
 # ✅ YOUR PINECONE KEY
-PINECONE_KEY = "pcsk_6ed6bd_ThFCdih1V1zRtGDSHfobBzuY88bqw8orHFekUK4b3AR8b5nxBk5Vab8k1oFv73i"
+PINECONE_KEY = ""
 
 # ✅ Initialize Pinecone
 pc = Pinecone(api_key=PINECONE_KEY)
