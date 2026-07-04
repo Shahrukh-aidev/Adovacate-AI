@@ -1,302 +1,256 @@
-# ============================================================
-# HAQ — Pakistan Legal AI  |  app.py
-# Bugs fixed, voice upgraded, document extraction improved
-# HuggingFace Spaces compatible
-#
-# packages.txt (system deps — add/update on HF Spaces):
-#   tesseract-ocr
-#   tesseract-ocr-urd
-#   poppler-utils
-#   ffmpeg
-#
-# requirements.txt (add edge-tts):
-#   gradio
-#   pinecone-client
-#   cohere
-#   requests
-#   reportlab
-#   python-docx
-#   pytesseract
-#   Pillow
-#   pdf2image
-#   pdfplumber
-#   gtts
-#   edge-tts
-# ============================================================
+<div align="center">
 
-import gradio as gr
-import json
-import os
-import re
-import asyncio
-from datetime import datetime
-import requests
-from pinecone import Pinecone
-import cohere
+<h1>⚖️ HAQ — Pakistan Legal AI</h1>
 
-from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import cm
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT, TA_JUSTIFY
+<p><strong>Bilingual RAG-powered legal assistant for Pakistan — document analysis, cited Q&A, voice input/output, and automated legal letter generation in English & Urdu.</strong></p>
 
-from docx import Document as DocxDocument
-from docx.shared import Pt, Cm as DocxCm, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.oxml.ns import qn
-from docx.oxml import OxmlElement
+<p>
+  <a href="https://github.com/Shahrukh-aidev/HAQ/stargazers"><img src="https://img.shields.io/github/stars/Shahrukh-aidev/HAQ?style=for-the-badge&color=FFD700" alt="Stars"/></a>
+  <a href="https://github.com/Shahrukh-aidev/HAQ/network/members"><img src="https://img.shields.io/github/forks/Shahrukh-aidev/HAQ?style=for-the-badge&color=4FC3F7" alt="Forks"/></a>
+  <a href="https://github.com/Shahrukh-aidev/HAQ/issues"><img src="https://img.shields.io/github/issues/Shahrukh-aidev/HAQ?style=for-the-badge&color=FF7043" alt="Issues"/></a>
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"/>
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status"/>
+  <img src="https://img.shields.io/badge/AI-Groq%20Powered-blueviolet?style=for-the-badge" alt="Groq"/>
+  <img src="https://img.shields.io/badge/Deploy-HuggingFace-orange?style=for-the-badge" alt="HuggingFace"/>
+</p>
 
-# ========== OCR / DOCUMENT EXTRACTION ==========
-try:
-    import pytesseract
-    from PIL import Image, ImageEnhance, ImageFilter
-    TESSERACT_AVAILABLE = True
-except ImportError:
-    TESSERACT_AVAILABLE = False
-    print("⚠️ pytesseract/PIL not installed. OCR disabled.")
+<p>
+  <a href="#-what-is-haq">About</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-supported-laws">Supported Laws</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
 
-try:
-    import pdf2image
-    PDF2IMAGE_AVAILABLE = True
-except ImportError:
-    PDF2IMAGE_AVAILABLE = False
-    print("⚠️ pdf2image not installed. PDF OCR disabled.")
+</div>
 
-try:
-    import pdfplumber
-    PDFPLUMBER_AVAILABLE = True
-except ImportError:
-    PDFPLUMBER_AVAILABLE = False
-    print("⚠️ pdfplumber not installed.")
+---
 
+## 🧠 What is HAQ?
 
-def _get_resample():
-    """Pillow LANCZOS compat for older and newer versions."""
-    try:
-        return Image.Resampling.LANCZOS
-    except AttributeError:
-        return Image.LANCZOS
+**HAQ** (حق — "right" or "justice") is an open-source, bilingual AI legal assistant built specifically for Pakistani citizens. It bridges the justice gap by delivering plain-language legal guidance in both **English and Urdu** — accessible to anyone, anywhere in Pakistan, without needing to hire a lawyer for basic legal understanding.
 
+From decoding a court notice or FIR to drafting a formal legal letter, HAQ produces contextually accurate, section-cited answers grounded in a RAG pipeline over **100+ Pakistani Acts and 4,000+ indexed legal chunks**.
 
-def preprocess_image_for_ocr(img):
-    """Resize, denoise, enhance contrast/sharpness before OCR."""
-    try:
-        if img.mode not in ("RGB", "L"):
-            img = img.convert("RGB")
-        w, h = img.size
-        # Scale up small images for better OCR
-        if max(w, h) < 1200:
-            scale = 1200 / max(w, h)
-            img = img.resize((int(w * scale), int(h * scale)), _get_resample())
-        # Grayscale → better for Tesseract
-        img = img.convert("L")
-        # Contrast boost
-        img = ImageEnhance.Contrast(img).enhance(2.0)
-        # Sharpness boost
-        img = ImageEnhance.Sharpness(img).enhance(2.0)
-        # Mild unsharp mask
-        img = img.filter(ImageFilter.UnsharpMask(radius=1, percent=150, threshold=3))
-        return img
-    except Exception as e:
-        print(f"Image preprocess error: {e}")
-        return img
+> Built by [Shahrukh Baloch](https://github.com/Shahrukh-aidev) — AI/ML Developer & CS Student at Sukkur IBA University 🇵🇰
 
+---
 
-def extract_text_from_image(image_path):
-    """OCR an image with preprocessing and multiple PSM configs."""
-    if not TESSERACT_AVAILABLE or not image_path:
-        return None
-    try:
-        img = Image.open(image_path)
-        img = preprocess_image_for_ocr(img)
+## ✨ Features
 
-        best_text = ""
-        # Try PSM 6 (uniform block), then 3 (auto), then 4 (single column)
-        for psm in [6, 3, 4]:
-            cfg = f"--oem 3 --psm {psm}"
-            try:
-                t = pytesseract.image_to_string(img, lang="eng+urd", config=cfg)
-            except Exception:
-                try:
-                    t = pytesseract.image_to_string(img, lang="eng", config=cfg)
-                except Exception:
-                    continue
-            if len(t.strip()) > len(best_text.strip()):
-                best_text = t
-        return best_text.strip() if best_text.strip() else None
-    except Exception as e:
-        print(f"OCR image error: {e}")
-        return None
+### ⚖️ Legal Q&A
+- **RAG-Powered Answers** — Retrieves the most relevant passages from 100+ Pakistani Acts via Pinecone + Cohere embeddings before every generation
+- **Anti-Hallucination Prompting** — Every response cites specific law sections with verified links directly to `pakistancode.gov.pk`
+- **4-Model Fallback Chain** — Groq-hosted Llama models cascade automatically for near-100% uptime
+- **Bilingual Support** — Detects question language and responds in English or Urdu accordingly
+- **Location-Aware Guidance** — Directs users to the right courts, lawyers, or government offices by city and province
 
+### 📄 Document Analysis
+- **OCR Engine** — Tesseract with preprocessing (contrast boost, resolution upscaling, multi-PSM strategy) handles low-quality scans
+- **PDF Extraction** — Native layout-preserving text via `pdfplumber` with OCR fallback for fully scanned PDFs
+- **Smart Document Analysis** — Analyzes FIRs, court notices, contracts, and legal notices with structured output: overview, critical clauses, key dates, legal implications, red flags, and next steps
+- **Red Flag Detection** — Automatically highlights suspicious, one-sided, or legally problematic clauses
 
-def extract_text_from_pdf(pdf_path):
-    """
-    Extract text from PDF:
-    1. Native extraction via pdfplumber (fast, accurate for digital PDFs)
-    2. OCR via pdf2image + Tesseract (fallback for scanned PDFs)
-    """
-    # --- Native text extraction ---
-    if PDFPLUMBER_AVAILABLE:
-        try:
-            all_pages = []
-            with pdfplumber.open(pdf_path) as pdf:
-                for i, page in enumerate(pdf.pages):
-                    # Extract text with layout preservation
-                    t = page.extract_text(x_tolerance=3, y_tolerance=3) or ""
-                    # Also try extracting tables as text
-                    tables = page.extract_tables()
-                    table_text = ""
-                    for tbl in tables:
-                        for row in tbl:
-                            row_clean = [str(c).strip() if c else "" for c in row]
-                            table_text += " | ".join(row_clean) + "\n"
-                    combined = (t + "\n" + table_text).strip()
-                    if combined:
-                        all_pages.append(f"--- Page {i+1} ---\n{combined}")
-            full_text = "\n\n".join(all_pages).strip()
-            if len(full_text) > 50:
-                return full_text
-        except Exception as e:
-            print(f"pdfplumber error: {e}")
+### 🔊 Voice Interface
+- **Voice Input** — Record your question in Urdu or English; Groq Whisper Large v3 transcribes it in seconds
+- **Text-to-Speech** — Microsoft edge-tts neural voices (`ur-PK-UzmaNeural` for Urdu, `en-US-JennyNeural` for English) with gTTS as fallback
 
-    # --- OCR fallback ---
-    if not PDF2IMAGE_AVAILABLE or not TESSERACT_AVAILABLE:
-        return None
-    try:
-        images = pdf2image.convert_from_path(pdf_path, dpi=250)
-        all_text = []
-        for i, img in enumerate(images):
-            img = preprocess_image_for_ocr(img)
-            best = ""
-            for psm in [6, 3]:
-                cfg = f"--oem 3 --psm {psm}"
-                try:
-                    t = pytesseract.image_to_string(img, lang="eng+urd", config=cfg)
-                except Exception:
-                    try:
-                        t = pytesseract.image_to_string(img, lang="eng", config=cfg)
-                    except Exception:
-                        continue
-                if len(t.strip()) > len(best.strip()):
-                    best = t
-            if best.strip():
-                all_text.append(f"--- Page {i+1} ---\n{best.strip()}")
-        return "\n\n".join(all_text) if all_text else None
-    except Exception as e:
-        print(f"OCR PDF error: {e}")
-        return None
+### 📝 Legal Document Generation
+- **PDF Letters** — Generates formatted legal letters with proper headers, section citations, and structure via ReportLab
+- **DOCX Letters** — Professional Word-compatible legal documents with clean styling via python-docx
+- **Covers 14+ Laws** — Constitution, PPC, CrPC, PECA, MFLO, Contract Act, and more
 
+---
 
-def clean_extracted_text(text):
-    """Remove junk chars from OCR output while keeping Urdu."""
-    if not text:
-        return ""
-    # Collapse excessive whitespace / newlines
-    text = re.sub(r'\n{3,}', '\n\n', text)
-    text = re.sub(r'[ \t]{2,}', ' ', text)
-    # Remove non-printable chars except common whitespace
-    text = re.sub(r'[^\x20-\x7E\u0600-\u06FF\u0750-\u077F\n\r\t]', ' ', text)
-    return text.strip()
+## 🛠 Tech Stack
 
+### Backend & AI
+| Layer | Technology |
+|-------|------------|
+| Runtime | Python 3.10+ |
+| UI Framework | Gradio |
+| LLM | Groq (Llama — 4-model fallback chain) |
+| Embeddings | Cohere |
+| Vector DB | Pinecone |
+| Speech-to-Text | Groq Whisper Large v3 |
+| Text-to-Speech | edge-tts (Microsoft Neural) + gTTS fallback |
+| OCR | Tesseract (`eng+urd`) + pytesseract |
+| PDF Processing | pdfplumber + pdf2image |
+| Document Generation | ReportLab + python-docx |
+| Deployment | HuggingFace Spaces |
 
-def analyze_document(doc_text, doc_type):
-    if not doc_text or len(doc_text.strip()) < 20:
-        return "⚠️ Could not extract readable text. Ensure the file is clear and try again."
+---
 
-    doc_text = clean_extracted_text(doc_text)
+## 🏗 Architecture
 
-    # Smart truncation: first 4 000 chars + last 1 500 chars for long docs
-    if len(doc_text) > 6000:
-        excerpt = doc_text[:4000] + "\n\n[...MIDDLE OMITTED...]\n\n" + doc_text[-1500:]
-    else:
-        excerpt = doc_text[:6000]
+```
+                    ┌──────────────────────────────────┐
+                    │            Gradio UI              │
+                    │  (Chat Tab / Doc Upload / Voice)  │
+                    └──────────────┬───────────────────┘
+                                   │
+                    ┌──────────────▼───────────────────┐
+                    │          HAQ Core Engine          │
+                    │  ┌────────────────────────────┐  │
+                    │  │  Cohere Embeddings          │  │
+                    │  │  Pinecone RAG Retrieval     │  │
+                    │  │  Groq LLM (4-model chain)   │  │
+                    │  │  Anti-hallucination Layer   │  │
+                    │  └─────────────┬──────────────┘  │
+                    └────────────────┼─────────────────┘
+         ┌──────────────────────────┼────────────────┐
+         ▼                          ▼                ▼
+  ┌─────────────┐        ┌─────────────────┐  ┌───────────────┐
+  │  Pinecone   │        │   Groq Cloud    │  │  Tesseract    │
+  │ 4,000+chunks│        │ LLM + Whisper   │  │  OCR Engine   │
+  │  100+ Acts  │        └─────────────────┘  └───────────────┘
+  └─────────────┘
+         │
+         ▼
+  ┌──────────────────────────────────────┐
+  │  Output Layer                        │
+  │  ├─ Cited text answer                │
+  │  ├─ Audio (edge-tts / gTTS)          │
+  │  └─ Legal letter (PDF / DOCX)        │
+  └──────────────────────────────────────┘
+```
 
-    prompt = f"""You are HAQ, Pakistan's AI legal assistant. Analyze the following {doc_type}.
+---
 
-DOCUMENT TYPE: {doc_type}
-EXTRACTED TEXT:
-{excerpt}
+## 🚀 Getting Started
 
-Provide analysis in this EXACT format:
+### Prerequisites
+- Python 3.10+
+- Groq API key
+- Pinecone API key
+- Cohere API key
+- Tesseract OCR (`tesseract-ocr`, `tesseract-ocr-urd`)
+- Poppler utils (`poppler-utils`)
+- ffmpeg
 
-📄 DOCUMENT OVERVIEW
-[2-3 sentence summary of what this document is]
+### 1. Clone the repo
+```bash
+git clone https://github.com/Shahrukh-aidev/HAQ.git
+cd HAQ
+```
 
-⚠️ CRITICAL CLAUSES / WARNINGS
-1. [Clause / Term]: [Plain-language explanation]
-2. [Clause / Term]: [Plain-language explanation]
-3. [Clause / Term]: [Plain-language explanation]
+### 2. Install system dependencies
 
-📋 KEY DATES & DEADLINES
-• [Date or Deadline]: [Required action]
-• [Date or Deadline]: [Required action]
+**Ubuntu / HuggingFace Spaces — `packages.txt`**
+```
+tesseract-ocr
+tesseract-ocr-urd
+poppler-utils
+ffmpeg
+```
 
-⚖️ LEGAL IMPLICATIONS
-[Explain legal consequences and applicable Pakistani laws with section numbers]
+### 3. Install Python dependencies
+```bash
+pip install -r requirements.txt
+```
 
-✅ WHAT YOU SHOULD DO NEXT
-1. [Immediate step]
-2. [Short-term step]
-3. [Long-term step]
+**`requirements.txt`**
+```
+gradio
+pinecone-client
+cohere
+requests
+reportlab
+python-docx
+pytesseract
+Pillow
+pdf2image
+pdfplumber
+gtts
+edge-tts
+```
 
-🚨 RED FLAGS
-[Any suspicious, unfair, or legally problematic clauses — write NONE if document appears fair]
+### 4. Set environment variables
+```env
+PINECONE_KEY=your_pinecone_api_key
+COHERE_KEY=your_cohere_api_key
+GROQ_KEY=your_groq_api_key
+```
 
-📞 WHERE TO GET HELP
-[Specific court, lawyer type, or government office — be location-specific if city is mentioned]
+### 5. Run
+```bash
+python app.py
+```
 
-DISCLAIMER: General legal information. Consult a licensed Vakeel for official advice.
+> **Deploying to HuggingFace Spaces?** Add the three keys above as Secrets in your Space settings and push — it works out of the box.
 
-RULES:
-- Use simple language; the user may not be a lawyer
-- Cite specific Pakistani laws and section numbers
-- If court notice: explain consequences of non-response
-- If FIR: explain charges and next steps within 24 hours
-- If contract: highlight one-sided or risky clauses
-- If legal notice: explain deadline and consequences
-- Be honest if text quality is poor"""
+---
 
-    msgs = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": prompt},
-    ]
-    answer, err = call_groq(msgs, max_tokens=1800)
-    return answer if answer else f"⚠️ Analysis failed: {err}"
+## 📚 Supported Laws
 
+HAQ covers **14+ major Pakistani statutes** with verified links to `pakistancode.gov.pk`:
 
-def process_uploaded_document(file_path, doc_type):
-    if not file_path:
-        return "Please upload a document first.", ""
+| # | Law | Icon |
+|---|-----|------|
+| 1 | Constitution of Pakistan 1973 | 🏛 |
+| 2 | Pakistan Penal Code 1860 | ⚖ |
+| 3 | Code of Criminal Procedure 1898 | 📋 |
+| 4 | Prevention of Electronic Crimes Act 2016 | 💻 |
+| 5 | Muslim Family Laws Ordinance 1961 | 👪 |
+| 6 | Contract Act 1872 | 📝 |
+| 7 | Transfer of Property Act 1882 | 🏠 |
+| 8 | Payment of Wages Act 1936 | 💼 |
+| 9 | Registration Act 1908 | 📄 |
+| 10 | Specific Relief Act 1877 | 🔍 |
+| 11 | Anti-Terrorism Act 1997 | 🚨 |
+| 12 | Dissolution of Muslim Marriages Act 1939 | 📜 |
+| 13 | Qanoon-e-Shahadat Order 1984 | 🔎 |
+| 14 | Banking Companies Ordinance 1962 | 🏦 |
 
-    file_path = str(file_path)
-    if not os.path.exists(file_path):
-        return "⚠️ File not found. Please upload again.", ""
+---
 
-    ext = os.path.splitext(file_path)[1].lower()
-    extracted_text = None
-    method = "unknown"
+## 📁 Project Structure
 
-    if ext in (".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp"):
-        extracted_text = extract_text_from_image(file_path)
-        method = "OCR (Tesseract)"
-    elif ext == ".pdf":
-        extracted_text = extract_text_from_pdf(file_path)
-        method = "PDF extraction"
-    elif ext in (".txt", ".md"):
-        try:
-            with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                extracted_text = f.read()
-            method = "text file"
-        except Exception as e:
-            return f"⚠️ Could not read file: {e}", ""
-    else:
-        return f"⚠️ Unsupported file type: {ext}. Upload PDF, PNG, JPG, or TXT.", ""
+```
+HAQ/
+├── app.py                  # Core application — all modules in one file
+├── requirements.txt        # Python dependencies
+├── packages.txt            # System-level dependencies (HF Spaces)
+├── data/
+│   └── acts/               # 100+ Pakistani Acts (source documents)
+└── README.md
+```
 
-    if not extracted_text or len(extracted_text.strip()) < 20:
-        return (
-            "⚠️ Could not extract readable text. The file may be:\n"
-            "• A low-quality or heavily compressed scan\n"
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+```bash
+git checkout -b feature/your-feature-name
+git commit -m "feat: add your feature"
+git push origin feature/your-feature-name
+```
+
+---
+
+## 👨‍💻 Author
+
+**Shahrukh Baloch** — AI/ML Developer
+- GitHub: [@Shahrukh-aidev](https://github.com/Shahrukh-aidev)
+- LinkedIn: [shahrukh-baloch](https://www.linkedin.com/in/shahrukh-baloch/)
+- Fiverr: [jsharukh123](https://www.fiverr.com/users/jsharukh123/)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p>If you found this useful, please ⭐ the repo — it helps a lot!</p>
+  <p>Built with ❤️ for Pakistan 🇵🇰</p>
+</div>     "• A low-quality or heavily compressed scan\n"
             "• A handwritten document (OCR has limited accuracy)\n"
             "• Password-protected or corrupted\n\n"
             "Tips: Use a higher-resolution scan (300 DPI+), ensure good lighting, "
