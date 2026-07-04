@@ -1,26 +1,38 @@
 <div align="center">
 
-<h1>⚖️ HAQ — Pakistan Legal AI</h1>
+<img src="https://img.shields.io/badge/%E2%9A%96%EF%B8%8F-HAQ-1a1a2e?style=for-the-badge&labelColor=1a1a2e&color=4f46e5" alt="HAQ"/>
 
-<p><strong>Bilingual RAG-powered legal assistant for Pakistan — document analysis, cited Q&A, voice input/output, and automated legal letter generation in English & Urdu.</strong></p>
+<h1>HAQ — حق<br/><sub>Pakistan's AI-Powered Legal Assistant</sub></h1>
 
 <p>
-  <a href="https://github.com/Shahrukh-aidev/HAQ/stargazers"><img src="https://img.shields.io/github/stars/Shahrukh-aidev/HAQ?style=for-the-badge&color=FFD700" alt="Stars"/></a>
-  <a href="https://github.com/Shahrukh-aidev/HAQ/network/members"><img src="https://img.shields.io/github/forks/Shahrukh-aidev/HAQ?style=for-the-badge&color=4FC3F7" alt="Forks"/></a>
-  <a href="https://github.com/Shahrukh-aidev/HAQ/issues"><img src="https://img.shields.io/github/issues/Shahrukh-aidev/HAQ?style=for-the-badge&color=FF7043" alt="Issues"/></a>
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"/>
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status"/>
-  <img src="https://img.shields.io/badge/AI-Groq%20Powered-blueviolet?style=for-the-badge" alt="Groq"/>
-  <img src="https://img.shields.io/badge/Deploy-HuggingFace-orange?style=for-the-badge" alt="HuggingFace"/>
+  <strong>Bilingual RAG pipeline · Document OCR & Analysis · Voice I/O · Auto-generated Legal Letters</strong><br/>
+  Plain-language legal guidance in English & Urdu — grounded in 100+ Pakistani Acts, zero hallucination.
 </p>
 
 <p>
-  <a href="#-what-is-haq">About</a> •
-  <a href="#-features">Features</a> •
-  <a href="#-tech-stack">Tech Stack</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-supported-laws">Supported Laws</a> •
+  <a href="https://github.com/Shahrukh-aidev/HAQ/stargazers">
+    <img src="https://img.shields.io/github/stars/Shahrukh-aidev/HAQ?style=for-the-badge&color=FFD700" alt="Stars"/>
+  </a>
+  <a href="https://github.com/Shahrukh-aidev/HAQ/network/members">
+    <img src="https://img.shields.io/github/forks/Shahrukh-aidev/HAQ?style=for-the-badge&color=4FC3F7" alt="Forks"/>
+  </a>
+  <a href="https://github.com/Shahrukh-aidev/HAQ/issues">
+    <img src="https://img.shields.io/github/issues/Shahrukh-aidev/HAQ?style=for-the-badge&color=FF7043" alt="Issues"/>
+  </a>
+  <img src="https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge" alt="License"/>
+  <img src="https://img.shields.io/badge/Status-Active-22c55e?style=for-the-badge" alt="Status"/>
+  <img src="https://img.shields.io/badge/LLM-Groq%20%2B%20Llama-7c3aed?style=for-the-badge" alt="Groq"/>
+  <img src="https://img.shields.io/badge/Deploy-HuggingFace%20Spaces-f97316?style=for-the-badge" alt="HuggingFace"/>
+</p>
+
+<p>
+  <a href="#-what-is-haq">About</a> ·
+  <a href="#-key-features">Features</a> ·
+  <a href="#-how-it-works">How It Works</a> ·
+  <a href="#-tech-stack">Tech Stack</a> ·
+  <a href="#-architecture">Architecture</a> ·
+  <a href="#-getting-started">Getting Started</a> ·
+  <a href="#-supported-laws">Supported Laws</a> ·
   <a href="#-contributing">Contributing</a>
 </p>
 
@@ -30,91 +42,134 @@
 
 ## 🧠 What is HAQ?
 
-**HAQ** (حق — "right" or "justice") is an open-source, bilingual AI legal assistant built specifically for Pakistani citizens. It bridges the justice gap by delivering plain-language legal guidance in both **English and Urdu** — accessible to anyone, anywhere in Pakistan, without needing to hire a lawyer for basic legal understanding.
+**HAQ** (حق — Urdu for *"right"* or *"justice"*) is an open-source bilingual AI legal assistant built for the 220 million citizens of Pakistan who face real legal problems but lack access to affordable legal counsel.
 
-From decoding a court notice or FIR to drafting a formal legal letter, HAQ produces contextually accurate, section-cited answers grounded in a RAG pipeline over **100+ Pakistani Acts and 4,000+ indexed legal chunks**.
+HAQ answers legal questions in plain English or Urdu, analyzes uploaded documents (FIRs, court notices, contracts), generates formal legal letters, and speaks responses aloud — all grounded in a RAG pipeline over **100+ Pakistani Acts and 4,000+ indexed legal chunks**, with every answer citing specific sections and verified links to `pakistancode.gov.pk`.
 
 > Built by [Shahrukh Baloch](https://github.com/Shahrukh-aidev) — AI/ML Developer & CS Student at Sukkur IBA University 🇵🇰
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-### ⚖️ Legal Q&A
-- **RAG-Powered Answers** — Retrieves the most relevant passages from 100+ Pakistani Acts via Pinecone + Cohere embeddings before every generation
-- **Anti-Hallucination Prompting** — Every response cites specific law sections with verified links directly to `pakistancode.gov.pk`
-- **4-Model Fallback Chain** — Groq-hosted Llama models cascade automatically for near-100% uptime
-- **Bilingual Support** — Detects question language and responds in English or Urdu accordingly
-- **Location-Aware Guidance** — Directs users to the right courts, lawyers, or government offices by city and province
+### ⚖️ Cited Legal Q&A
+| Capability | Details |
+|---|---|
+| RAG Retrieval | Cohere embeddings + Pinecone vector search across 100+ Acts before every answer |
+| Anti-Hallucination | Every response includes section numbers + verified `pakistancode.gov.pk` links |
+| 4-Model Fallback | Groq-hosted Llama models cascade automatically — near 100% uptime |
+| Bilingual | Auto-detects language; replies in English or Urdu to match the question |
+| Location-Aware | Routes users to the correct court, police station, or government office by city/province |
 
 ### 📄 Document Analysis
-- **OCR Engine** — Tesseract with preprocessing (contrast boost, resolution upscaling, multi-PSM strategy) handles low-quality scans
-- **PDF Extraction** — Native layout-preserving text via `pdfplumber` with OCR fallback for fully scanned PDFs
-- **Smart Document Analysis** — Analyzes FIRs, court notices, contracts, and legal notices with structured output: overview, critical clauses, key dates, legal implications, red flags, and next steps
-- **Red Flag Detection** — Automatically highlights suspicious, one-sided, or legally problematic clauses
+| Capability | Details |
+|---|---|
+| OCR Engine | Tesseract (`eng+urd`) with contrast boost, upscaling, and multi-PSM strategy for poor scans |
+| PDF Extraction | Native layout-preserving text via `pdfplumber`; OCR fallback for fully scanned PDFs |
+| Smart Analysis | Structured output: overview → critical clauses → key dates → legal implications → red flags → next steps |
+| Red Flag Detection | Flags suspicious, one-sided, or legally risky clauses automatically |
+| Supported Formats | PDF, PNG, JPG, TIFF, WEBP, TXT |
 
 ### 🔊 Voice Interface
-- **Voice Input** — Record your question in Urdu or English; Groq Whisper Large v3 transcribes it in seconds
-- **Text-to-Speech** — Microsoft edge-tts neural voices (`ur-PK-UzmaNeural` for Urdu, `en-US-JennyNeural` for English) with gTTS as fallback
+| Capability | Details |
+|---|---|
+| Voice Input | Record in Urdu or English — Groq Whisper Large v3 transcribes in seconds |
+| Text-to-Speech | Microsoft edge-tts neural voices: `ur-PK-UzmaNeural` (Urdu), `en-US-JennyNeural` (English) |
+| Fallback TTS | gTTS activates automatically if edge-tts is unavailable |
 
 ### 📝 Legal Document Generation
-- **PDF Letters** — Generates formatted legal letters with proper headers, section citations, and structure via ReportLab
-- **DOCX Letters** — Professional Word-compatible legal documents with clean styling via python-docx
-- **Covers 14+ Laws** — Constitution, PPC, CrPC, PECA, MFLO, Contract Act, and more
+| Capability | Details |
+|---|---|
+| PDF Letters | ReportLab-generated formal letters with proper headers, section citations, and layout |
+| DOCX Letters | Word-compatible documents with professional styling via python-docx |
+| Law Coverage | 14+ major Pakistani statutes supported with auto-detected references |
+
+### 🔗 Verification Links
+Every answer automatically detects which laws are referenced and injects a clickable verification card panel — letting users read the actual statute on `pakistancode.gov.pk` with one tap.
+
+---
+
+## 🔄 How It Works
+
+```
+User Input (text / voice / document)
+         │
+         ▼
+┌─────────────────────────────────────────────────────┐
+│                   Input Processing                   │
+│  Voice → Groq Whisper STT                           │
+│  Document → pdfplumber / Tesseract OCR              │
+│  Text → passed directly                             │
+└────────────────────────┬────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────┐
+│                   RAG Pipeline                       │
+│  1. Cohere embeds the query                         │
+│  2. Pinecone retrieves top-k law chunks             │
+│  3. Context + query sent to Groq LLM                │
+│  4. Anti-hallucination layer injects law links      │
+└────────────────────────┬────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────┐
+│                   Output Layer                       │
+│  • Cited text answer (section numbers + links)      │
+│  • Audio via edge-tts / gTTS                        │
+│  • Optional: Legal letter PDF or DOCX               │
+└─────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-### Backend & AI
 | Layer | Technology |
-|-------|------------|
-| Runtime | Python 3.10+ |
-| UI Framework | Gradio |
-| LLM | Groq (Llama — 4-model fallback chain) |
-| Embeddings | Cohere |
-| Vector DB | Pinecone |
-| Speech-to-Text | Groq Whisper Large v3 |
-| Text-to-Speech | edge-tts (Microsoft Neural) + gTTS fallback |
-| OCR | Tesseract (`eng+urd`) + pytesseract |
-| PDF Processing | pdfplumber + pdf2image |
-| Document Generation | ReportLab + python-docx |
-| Deployment | HuggingFace Spaces |
+|---|---|
+| **Runtime** | Python 3.10+ |
+| **UI Framework** | Gradio |
+| **LLM** | Groq — Llama (4-model fallback chain) |
+| **Embeddings** | Cohere |
+| **Vector Database** | Pinecone (`haq-law` index, 4,000+ chunks) |
+| **Speech-to-Text** | Groq Whisper Large v3 |
+| **Text-to-Speech** | Microsoft edge-tts (neural) + gTTS (fallback) |
+| **OCR** | Tesseract `eng+urd` + pytesseract + Pillow preprocessing |
+| **PDF Processing** | pdfplumber (native) + pdf2image (OCR fallback) |
+| **Document Generation** | ReportLab (PDF) + python-docx (DOCX) |
+| **Deployment** | HuggingFace Spaces |
 
 ---
 
 ## 🏗 Architecture
 
 ```
-                    ┌──────────────────────────────────┐
-                    │            Gradio UI              │
-                    │  (Chat Tab / Doc Upload / Voice)  │
-                    └──────────────┬───────────────────┘
-                                   │
-                    ┌──────────────▼───────────────────┐
-                    │          HAQ Core Engine          │
-                    │  ┌────────────────────────────┐  │
-                    │  │  Cohere Embeddings          │  │
-                    │  │  Pinecone RAG Retrieval     │  │
-                    │  │  Groq LLM (4-model chain)   │  │
-                    │  │  Anti-hallucination Layer   │  │
-                    │  └─────────────┬──────────────┘  │
-                    └────────────────┼─────────────────┘
-         ┌──────────────────────────┼────────────────┐
-         ▼                          ▼                ▼
-  ┌─────────────┐        ┌─────────────────┐  ┌───────────────┐
-  │  Pinecone   │        │   Groq Cloud    │  │  Tesseract    │
-  │ 4,000+chunks│        │ LLM + Whisper   │  │  OCR Engine   │
-  │  100+ Acts  │        └─────────────────┘  └───────────────┘
-  └─────────────┘
-         │
-         ▼
-  ┌──────────────────────────────────────┐
-  │  Output Layer                        │
-  │  ├─ Cited text answer                │
-  │  ├─ Audio (edge-tts / gTTS)          │
-  │  └─ Legal letter (PDF / DOCX)        │
-  └──────────────────────────────────────┘
+                   ┌───────────────────────────────────┐
+                   │            Gradio UI               │
+                   │  Chat · Document Upload · Voice    │
+                   └─────────────────┬─────────────────┘
+                                     │
+              ┌──────────────────────┼──────────────────┐
+              ▼                      ▼                   ▼
+   ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+   │  Voice Module    │  │  Document Module │  │   Q&A Module     │
+   │  Groq Whisper    │  │  pdfplumber      │  │  Cohere Embed    │
+   │  STT → text      │  │  Tesseract OCR   │  │  Pinecone RAG    │
+   └────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘
+            └──────────────────── ┼ ──────────────────────┘
+                                  │
+                   ┌──────────────▼─────────────────┐
+                   │       Groq LLM Engine           │
+                   │  Model 1 → 2 → 3 → 4 fallback  │
+                   │  Anti-hallucination prompting   │
+                   │  Section citation injection     │
+                   └──────────────┬─────────────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                    ▼
+   ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+   │   Text Answer    │  │  Audio Output    │  │ Document Output  │
+   │  + Law Links     │  │  edge-tts/gTTS   │  │  PDF / DOCX      │
+   └──────────────────┘  └──────────────────┘  └──────────────────┘
 ```
 
 ---
@@ -122,23 +177,26 @@ From decoding a court notice or FIR to drafting a formal legal letter, HAQ produ
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.10+
-- Groq API key
-- Pinecone API key
-- Cohere API key
-- Tesseract OCR (`tesseract-ocr`, `tesseract-ocr-urd`)
-- Poppler utils (`poppler-utils`)
-- ffmpeg
 
-### 1. Clone the repo
+- Python 3.10+
+- API keys: Groq, Pinecone, Cohere
+- System packages: `tesseract-ocr`, `tesseract-ocr-urd`, `poppler-utils`, `ffmpeg`
+
+### 1 · Clone
+
 ```bash
 git clone https://github.com/Shahrukh-aidev/HAQ.git
 cd HAQ
 ```
 
-### 2. Install system dependencies
+### 2 · System Dependencies
 
-**Ubuntu / HuggingFace Spaces — `packages.txt`**
+**On Ubuntu / Debian:**
+```bash
+sudo apt-get install -y tesseract-ocr tesseract-ocr-urd poppler-utils ffmpeg
+```
+
+**On HuggingFace Spaces — `packages.txt`:**
 ```
 tesseract-ocr
 tesseract-ocr-urd
@@ -146,12 +204,13 @@ poppler-utils
 ffmpeg
 ```
 
-### 3. Install Python dependencies
+### 3 · Python Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-**`requirements.txt`**
+**`requirements.txt`:**
 ```
 gradio
 pinecone-client
@@ -167,42 +226,48 @@ gtts
 edge-tts
 ```
 
-### 4. Set environment variables
+### 4 · Environment Variables
+
+Create a `.env` file or set as Secrets (HuggingFace Spaces → Settings → Secrets):
+
 ```env
 PINECONE_KEY=your_pinecone_api_key
 COHERE_KEY=your_cohere_api_key
 GROQ_KEY=your_groq_api_key
 ```
 
-### 5. Run
+### 5 · Run
+
 ```bash
 python app.py
 ```
 
-> **Deploying to HuggingFace Spaces?** Add the three keys above as Secrets in your Space settings and push — it works out of the box.
+The Gradio UI launches at `http://localhost:7860`.
+
+> **HuggingFace Spaces:** Push the repo with `packages.txt`, `requirements.txt`, and your Secrets set — it deploys automatically.
 
 ---
 
 ## 📚 Supported Laws
 
-HAQ covers **14+ major Pakistani statutes** with verified links to `pakistancode.gov.pk`:
+HAQ covers **14 major Pakistani statutes**, each with pattern-matched detection and direct verified links to `pakistancode.gov.pk`:
 
-| # | Law | Icon |
-|---|-----|------|
-| 1 | Constitution of Pakistan 1973 | 🏛 |
-| 2 | Pakistan Penal Code 1860 | ⚖ |
-| 3 | Code of Criminal Procedure 1898 | 📋 |
-| 4 | Prevention of Electronic Crimes Act 2016 | 💻 |
-| 5 | Muslim Family Laws Ordinance 1961 | 👪 |
-| 6 | Contract Act 1872 | 📝 |
-| 7 | Transfer of Property Act 1882 | 🏠 |
-| 8 | Payment of Wages Act 1936 | 💼 |
-| 9 | Registration Act 1908 | 📄 |
-| 10 | Specific Relief Act 1877 | 🔍 |
-| 11 | Anti-Terrorism Act 1997 | 🚨 |
-| 12 | Dissolution of Muslim Marriages Act 1939 | 📜 |
-| 13 | Qanoon-e-Shahadat Order 1984 | 🔎 |
-| 14 | Banking Companies Ordinance 1962 | 🏦 |
+| # | Statute | Covers |
+|---|---------|--------|
+| 🏛 | **Constitution of Pakistan 1973** | Fundamental rights, writs, habeas corpus, mandamus |
+| ⚖️ | **Pakistan Penal Code 1860** | Crimes, qatl, diyat, theft, cheating, rape |
+| 📋 | **Code of Criminal Procedure 1898** | FIR, bail, challan, arrest |
+| 💻 | **Prevention of Electronic Crimes Act 2016** | Cybercrime, online harassment, FIA cases |
+| 👪 | **Muslim Family Laws Ordinance 1961** | Nikah, talaq, khula, mehr, iddat |
+| 📝 | **Contract Act 1872** | Breach of contract, consideration, voidability |
+| 🏠 | **Transfer of Property Act 1882** | Property transfer, mortgage, adverse possession |
+| 💼 | **Payment of Wages Act 1936** | Wage disputes, gratuity, EOBI, workmen compensation |
+| 📄 | **Registration Act 1908** | Sub-registrar, stamp duty, document registration |
+| 🔍 | **Specific Relief Act 1877** | Specific performance, injunctions |
+| 🚨 | **Anti-Terrorism Act 1997** | ATC jurisdiction, terrorism-related charges |
+| 📜 | **Dissolution of Muslim Marriages Act 1939** | Judicial divorce for Muslim women |
+| 🔎 | **Qanoon-e-Shahadat Order 1984** | Evidence, confessions, electronic evidence |
+| 🏦 | **Banking Companies Ordinance 1962** | Banking disputes, SBP, banking mohtasib |
 
 ---
 
@@ -210,11 +275,18 @@ HAQ covers **14+ major Pakistani statutes** with verified links to `pakistancode
 
 ```
 HAQ/
-├── app.py                  # Core application — all modules in one file
+├── app.py                  # Entire application — all modules in one file
+│   ├── OCR / Document Extraction
+│   ├── Text-to-Speech (edge-tts + gTTS)
+│   ├── Voice Input (Groq Whisper)
+│   ├── RAG Pipeline (Cohere + Pinecone + Groq)
+│   ├── Law Detection & Verification Links
+│   ├── Document Generation (PDF + DOCX)
+│   └── Gradio UI
 ├── requirements.txt        # Python dependencies
 ├── packages.txt            # System-level dependencies (HF Spaces)
 ├── data/
-│   └── acts/               # 100+ Pakistani Acts (source documents)
+│   └── acts/               # Source documents — 100+ Pakistani Acts
 └── README.md
 ```
 
@@ -222,1609 +294,36 @@ HAQ/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open an issue or submit a pull request.
+Contributions are welcome — bug fixes, new law patterns, UI improvements, or Urdu NLP enhancements.
 
 ```bash
+# Fork → branch → PR
 git checkout -b feature/your-feature-name
-git commit -m "feat: add your feature"
+git commit -m "feat: describe your change"
 git push origin feature/your-feature-name
 ```
+
+Please open an issue first for significant changes so we can discuss the approach.
 
 ---
 
 ## 👨‍💻 Author
 
 **Shahrukh Baloch** — AI/ML Developer
-- GitHub: [@Shahrukh-aidev](https://github.com/Shahrukh-aidev)
-- LinkedIn: [shahrukh-baloch](https://www.linkedin.com/in/shahrukh-baloch/)
-- Fiverr: [jsharukh123](https://www.fiverr.com/users/jsharukh123/)
+
+[![GitHub](https://img.shields.io/badge/GitHub-Shahrukh--aidev-181717?style=flat-square&logo=github)](https://github.com/Shahrukh-aidev)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-shahrukh--baloch-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/shahrukh-baloch/)
+[![Fiverr](https://img.shields.io/badge/Fiverr-jsharukh123-1DBF73?style=flat-square&logo=fiverr)](https://www.fiverr.com/users/jsharukh123/)
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+Licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
 
 ---
 
 <div align="center">
-  <p>If you found this useful, please ⭐ the repo — it helps a lot!</p>
-  <p>Built with ❤️ for Pakistan 🇵🇰</p>
-</div>     "• A low-quality or heavily compressed scan\n"
-            "• A handwritten document (OCR has limited accuracy)\n"
-            "• Password-protected or corrupted\n\n"
-            "Tips: Use a higher-resolution scan (300 DPI+), ensure good lighting, "
-            "or manually type the key text into the chat tab.",
-            "",
-        )
-
-    analysis = analyze_document(extracted_text, doc_type)
-    preview_text = clean_extracted_text(extracted_text)
-    preview = (
-        f"📄 EXTRACTED TEXT PREVIEW [{method}] — first 800 chars:\n"
-        f"{'─'*60}\n"
-        f"{preview_text[:800]}"
-        + ("\n...[truncated]" if len(preview_text) > 800 else "")
-    )
-    return analysis, preview
-
-
-# ========== TEXT-TO-SPEECH (edge-tts PRIMARY, gTTS fallback) ==========
-try:
-    import edge_tts as _edge_tts_module
-    EDGE_TTS_AVAILABLE = True
-except ImportError:
-    EDGE_TTS_AVAILABLE = False
-    print("⚠️ edge-tts not installed. Using gTTS. Install: pip install edge-tts")
-
-try:
-    from gtts import gTTS
-    GTTS_AVAILABLE = True
-except ImportError:
-    GTTS_AVAILABLE = False
-    print("⚠️ gTTS not installed.")
-
-
-def detect_language(text):
-    urdu = sum(1 for c in text if "\u0600" <= c <= "\u06FF" or "\u0750" <= c <= "\u077F")
-    total = sum(1 for c in text if c.isalpha())
-    return "ur" if total and urdu / total > 0.25 else "en"
-
-
-def _clean_for_tts(text):
-    """Strip markdown, citations, format tokens — leave speakable prose."""
-    t = re.sub(r"\[.*?\]", "", text)                         # [citations]
-    t = re.sub(r"<[^>]+>", "", t)                            # HTML tags
-    t = re.sub(r"[#*`_~>{|}]", "", t)                        # markdown symbols
-    # Remove format section headers that sound bad spoken
-    for hdr in [
-        "LEGAL BASIS", "THE RULING", "WHAT YOU SHOULD DO",
-        "WHERE TO GO", "DISCLAIMER", "DOCUMENT OVERVIEW",
-        "CRITICAL CLAUSES", "KEY DATES", "LEGAL IMPLICATIONS",
-        "RED FLAGS", "WHAT YOU SHOULD DO NEXT",
-    ]:
-        t = t.replace(hdr, "")
-    t = re.sub(r"\s+", " ", t).strip()
-    return t
-
-
-async def _edge_speak(text, voice, path):
-    communicate = _edge_tts_module.Communicate(text, voice)
-    await communicate.save(path)
-
-
-def text_to_speech(answer_text):
-    if not answer_text or len(answer_text.strip()) < 3:
-        return None
-
-    clean = _clean_for_tts(answer_text)
-    # Longer limit for edge-tts (better quality handles more text)
-    max_len = 900 if EDGE_TTS_AVAILABLE else 500
-    clean = clean[:max_len]
-    if not clean:
-        return None
-
-    lang = detect_language(clean)
-    audio_path = f"/tmp/haq_tts_{datetime.now().strftime('%Y%m%d_%H%M%S')}.mp3"
-
-    # ── Primary: Microsoft edge-tts (neural voices, much better quality) ──
-    if EDGE_TTS_AVAILABLE:
-        # Urdu neural voice; English uses high-quality US Jenny
-        voice = "ur-PK-UzmaNeural" if lang == "ur" else "en-US-JennyNeural"
-        try:
-            # asyncio.run() raises RuntimeError if a loop is already running (Gradio)
-            try:
-                asyncio.run(_edge_speak(clean, voice, audio_path))
-            except RuntimeError:
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                try:
-                    loop.run_until_complete(_edge_speak(clean, voice, audio_path))
-                finally:
-                    loop.close()
-
-            if os.path.exists(audio_path) and os.path.getsize(audio_path) > 500:
-                return audio_path
-        except Exception as e:
-            print(f"edge-tts error: {e}")
-
-    # ── Fallback: gTTS ──
-    if GTTS_AVAILABLE:
-        try:
-            gTTS(text=clean, lang=lang, slow=False, tld="com").save(audio_path)
-            return audio_path
-        except Exception as e:
-            print(f"gTTS error: {e}")
-
-    return None
-
-
-# ========== VOICE INPUT ==========
-def transcribe_voice(audio_path):
-    if not audio_path or not GROQ_KEY:
-        return "⚠️ Audio not captured or GROQ_KEY missing. Please type your question."
-    try:
-        with open(audio_path, "rb") as af:
-            r = requests.post(
-                "https://api.groq.com/openai/v1/audio/transcriptions",
-                headers={"Authorization": f"Bearer {GROQ_KEY}"},
-                files={"file": ("voice.wav", af, "audio/wav")},
-                data={"model": "whisper-large-v3", "language": "ur", "response_format": "json"},
-                timeout=30,
-            )
-        if r.status_code == 200:
-            text = r.json().get("text", "").strip()
-            return text if text else "⚠️ Could not understand audio. Please speak clearly."
-        return f"⚠️ Transcription error (HTTP {r.status_code})."
-    except Exception as e:
-        print(f"Transcription error: {e}")
-        return "⚠️ Voice transcription failed. Please type your question."
-
-
-# ========== API KEYS & CONNECTIONS ==========
-PINECONE_KEY = os.environ.get("PINECONE_KEY", "").strip()
-COHERE_KEY   = os.environ.get("COHERE_KEY",   "").strip()
-GROQ_KEY     = os.environ.get("GROQ_KEY",     "").strip()
-
-print(f"Pinecone: {'OK' if PINECONE_KEY else 'MISSING'}")
-print(f"Cohere:   {'OK' if COHERE_KEY   else 'MISSING'}")
-print(f"Groq:     {'OK' if GROQ_KEY     else 'MISSING'}")
-
-index = None
-co    = None
-
-try:
-    if PINECONE_KEY:
-        pc = Pinecone(api_key=PINECONE_KEY)
-        index = pc.Index("haq-law")
-        print("Pinecone connected")
-except Exception as e:
-    print(f"Pinecone error: {e}")
-
-try:
-    if COHERE_KEY:
-        co = cohere.Client(COHERE_KEY)
-        print("Cohere connected")
-except Exception as e:
-    print(f"Cohere error: {e}")
-
-
-# ========== LAW LINKS & PATTERNS ==========
-LAW_LINKS = {
-    "constitution":    {"name": "Constitution of Pakistan 1973",          "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-ap8=-sg-jjjjjjjjjjjjj",              "icon": "🏛"},
-    "ppc":             {"name": "Pakistan Penal Code 1860",               "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npa5lo-sg-jjjjjjjjjjjjj",    "icon": "⚖"},
-    "crpc":            {"name": "Code of Criminal Procedure 1898",        "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npa5lp-sg-jjjjjjjjjjjjj",    "icon": "📋"},
-    "peca":            {"name": "Prevention of Electronic Crimes Act 2016","url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Jvbp8=-sg-jjjjjjjjjjjjj",    "icon": "💻"},
-    "mflo":            {"name": "Muslim Family Laws Ordinance 1961",       "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npa5po-sg-jjjjjjjjjjjjj",    "icon": "👪"},
-    "contract":        {"name": "Contract Act 1872",                       "url": "https://pakistancode.gov.pk/english/UY2FqaJw2-apaUY2Fqa-a50=-sg-jjjjjjjjjjjjj-con-51",      "icon": "📝"},
-    "property":        {"name": "Transfer of Property Act 1882",           "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-bpk=-sg-jjjjjjjjjjjjj",             "icon": "🏠"},
-    "labour":          {"name": "Payment of Wages Act 1936",               "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-cJY=-sg-jjjjjjjjjjjjj",             "icon": "💼"},
-    "registration":    {"name": "Registration Act 1908",                   "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apeU-sg-jjjjjjjjjjjjj",             "icon": "📄"},
-    "specific_relief": {"name": "Specific Relief Act 1877",                "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-bpo=-sg-jjjjjjjjjjjjj",             "icon": "🔍"},
-    "ata":             {"name": "Anti-Terrorism Act 1997",                  "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npappq-sg-jjjjjjjjjjjjj",    "icon": "🚨"},
-    "dmma":            {"name": "Dissolution of Muslim Marriages Act 1939", "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-cJaW-sg-jjjjjjjjjjjjj",            "icon": "📜"},
-    "evidence":        {"name": "Qanoon-e-Shahadat Order 1984",            "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npa5plaw==-sg-jjjjjjjjjjjjj","icon": "🔎"},
-    "banking":         {"name": "Banking Companies Ordinance 1962",        "url": "https://pakistancode.gov.pk/english/UY2FqaJw1-apaUY2Fqa-apaUY2Npa5qq-sg-jjjjjjjjjjjjj",    "icon": "🏦"},
-}
-
-LAW_PATTERNS = {
-    "constitution":    [r"[Aa]rticle\s*\d+", r"[Cc]onstitution", r"[Ff]undamental [Rr]ight", r"[Hh]abeas [Cc]orpus", r"[Mm]andamus", r"[Ww]rit"],
-    "ppc":             [r"PPC", r"[Pp]enal [Cc]ode", r"[Ss]ection\s*30[0-9]", r"[Ss]ection\s*37[0-9]", r"[Ss]ection\s*4[12][0-9]", r"[Qq]atl", r"[Dd]iyat", r"[Rr]ape", r"[Tt]heft", r"[Cc]heating"],
-    "crpc":            [r"CrPC", r"[Cc]riminal [Pp]rocedure", r"[Ss]ection\s*154", r"[Ss]ection\s*497", r"[Ss]ection\s*498", r"[Ss]ection\s*54\b", r"[Ff]IR", r"[Bb]ail\b", r"[Cc]hallan"],
-    "peca":            [r"PECA", r"[Cc]ybercrime", r"[Ee]lectronic [Cc]rime", r"[Oo]nline [Hh]arassment", r"FIA\b", r"[Cc]yberstalking"],
-    "mflo":            [r"MFLO", r"[Mm]uslim [Ff]amily", r"[Kk]hula", r"[Tt]alaq", r"[Nn]ikah", r"[Mm]ehr", r"[Ii]ddat"],
-    "contract":        [r"[Cc]ontract [Aa]ct", r"[Ss]ection\s*73\b", r"[Ss]ection\s*19\b", r"[Bb]reach of [Cc]ontract", r"[Cc]onsideration"],
-    "property":        [r"[Tt]ransfer of [Pp]roperty", r"[Ss]ection\s*53.?[Aa]", r"TPA\b", r"[Mm]ortgage", r"[Aa]dverse [Pp]ossession"],
-    "labour":          [r"[Pp]ayment of [Ww]ages", r"[Ll]abour [Cc]ourt", r"[Mm]inimum [Ww]ages", r"[Gg]ratuity", r"EOBI", r"[Ww]orkmen [Cc]ompensation"],
-    "registration":    [r"[Rr]egistration [Aa]ct", r"[Ss]ub-[Rr]egistrar", r"[Ss]tamp [Dd]uty"],
-    "specific_relief": [r"[Ss]pecific [Rr]elief", r"[Ss]pecific [Pp]erformance"],
-    "ata":             [r"[Aa]nti-[Tt]errorism", r"\bATA\b", r"\bATC\b"],
-    "dmma":            [r"DMMA", r"[Dd]issolution of [Mm]uslim"],
-    "evidence":        [r"[Qq]anoon-e-[Ss]hahadat", r"[Cc]onfession", r"[Ee]lectronic [Ee]vidence"],
-    "banking":         [r"[Bb]anking [Cc]ompanies", r"[Bb]anking [Mm]ohtasib", r"SBP\b"],
-}
-
-
-def detect_laws(text):
-    found = []
-    for law_key, patterns in LAW_PATTERNS.items():
-        if any(re.search(p, text) for p in patterns):
-            found.append(law_key)
-    return found
-
-
-def build_verify_html(answer_text):
-    detected = detect_laws(answer_text)
-    if not detected:
-        return ""
-    cards = ""
-    for law_key in detected:
-        law = LAW_LINKS[law_key]
-        cards += (
-            f'<a href="{law["url"]}" target="_blank" rel="noopener noreferrer"'
-            ' style="display:flex;align-items:center;gap:12px;padding:11px 14px;'
-            'background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);'
-            'border-radius:10px;text-decoration:none;margin-bottom:7px;">'
-            f'<span style="font-size:20px;flex-shrink:0;">{law["icon"]}</span>'
-            '<div style="flex:1;min-width:0;">'
-            f'<div style="color:#e2e8f0;font-size:13px;font-weight:600;">{law["name"]}</div>'
-            '<div style="color:#64748b;font-size:11px;margin-top:2px;">pakistancode.gov.pk — Ministry of Law &amp; Justice</div>'
-            '</div>'
-            '<div style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);'
-            'color:#10b981;font-size:11px;font-weight:700;padding:4px 10px;'
-            'border-radius:20px;flex-shrink:0;">Verify</div>'
-            '</a>'
-        )
-    return (
-        '<div style="margin:12px 0 0;padding:16px;background:rgba(16,185,129,0.05);'
-        'border:1px solid rgba(16,185,129,0.2);border-radius:14px;">'
-        '<div style="color:#10b981;font-size:12px;font-weight:700;text-transform:uppercase;'
-        'letter-spacing:0.8px;margin-bottom:12px;">✓ Verify These Laws — Official Sources</div>'
-        + cards +
-        '<div style="color:#475569;font-size:11px;margin-top:8px;text-align:center;'
-        'padding-top:8px;border-top:1px solid rgba(255,255,255,0.05);">'
-        'All links → pakistancode.gov.pk — Pakistan Ministry of Law &amp; Justice (Official)'
-        '</div></div>'
-    )
-
-
-# ========== SYSTEM PROMPTS ==========
-SYSTEM_PROMPT = """You are HAQ, Pakistan's most accurate AI legal assistant. You remember the full conversation and answer follow-up questions in context.
-CORE RULES:
-1. ALWAYS remember what was discussed earlier in this conversation
-2. When user asks follow-up like "what if he doesn't comply?" or "phir kya hoga?" — refer back to the previous legal situation
-3. Cite exact law name + section number always
-4. Never invent citations. Never give illegal advice.
-5. Urdu question -> Pure Urdu answer. English -> English. Mixed -> Match user's language.
-6. NEVER use Hindi words — pure Urdu only (afsar not adhikari, karwai not karyavahi)
-7. Keep answers focused — don't repeat information already given in this conversation
-FORMAT EVERY ANSWER:
-LEGAL BASIS
-[Law Name Year, Section X]: [explanation]
-THE RULING
-[Direct answer in 2-3 sentences]
-WHAT YOU SHOULD DO
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-WHERE TO GO
-[Specific authority/court]
-DISCLAIMER
-General legal information. Consult a licensed Vakeel for court cases.
-KEY LAWS:
-Constitution 1973: Art 9 (life/liberty), Art 10 (arrest safeguards-24hrs-lawyer), Art 10-A (fair trial), Art 13 (double jeopardy), Art 25 (equality), Art 199 (High Court writs)
-PPC 1860: Sec 302 (qatl-i-amd-death/life), Sec 375-376 (rape), Sec 379 (theft-3yrs), Sec 420 (cheating-7yrs), Sec 441 (trespass), Sec 489-F (bad cheque-3yrs), Sec 499-500 (defamation-2yrs)
-CrPC 1898: Sec 22A (Justice of Peace), Sec 54 (arrest without warrant), Sec 154 (FIR-mandatory-free), Sec 497 (bail), Sec 498 (anticipatory bail-High Court), Sec 561A (FIR quashment)
-MFLO 1961: Sec 6 (polygamy-Arbitration Council), Sec 7 (talaq-90days), Sec 8 (khula-no husband consent needed)
-PECA 2016: Sec 20 (harassment-3yrs/Rs1M), Sec 21 (private images-5yrs/Rs5M), Sec 24 (cyberstalking-3yrs)
-Labour: Wages by 7th, show-cause before termination, gratuity=30days/yr after 5yrs, overtime=2x
-Contract Act 1872: Sec 10 (valid contract), Sec 19 (voidable), Sec 73 (breach compensation)
-Property: TPA 1882 Sec 53A, adverse possession=12yrs
-Evidence: Qanoon-e-Shahadat 1984 Art 35 (police confession inadmissible), Art 164 (electronic evidence)"""
-
-LETTER_SYSTEM_PROMPT = """You are HAQ, Pakistan's AI legal assistant. Generate professional Pakistani legal notice body text.
-Write EXACTLY 6 paragraphs. Do NOT write greeting, salutation, header, closing, or signature.
-PARAGRAPH 1 — INTRODUCTION: Who sender is and general nature of grievance.
-PARAGRAPH 2 — STATEMENT OF FACTS: Chronological facts with dates/amounts where provided.
-PARAGRAPH 3 — LEGAL VIOLATIONS: "Your actions constitute a violation of [Law Name Year], Section [X], which provides that [brief text]."
-PARAGRAPH 4 — TAKE NOTICE: "TAKE NOTICE THAT you are hereby called upon and required to [specific demand] within FIFTEEN (15) days from receipt of this notice."
-PARAGRAPH 5 — CONSEQUENCES: Specific court + sections that will be invoked upon non-compliance.
-PARAGRAPH 6 — COSTS: Liability for all costs and damages.
-RULES: Formal Pakistani legal English. Cite exact law + section for every claim. 15-day deadline standard."""
-
-
-# ========== EMBEDDING & SEARCH ==========
-def get_embedding(text):
-    if not co:
-        return None
-    try:
-        r = co.embed(texts=[str(text)[:500]], model="embed-english-light-v3.0", input_type="search_query")
-        return r.embeddings[0]
-    except Exception as e:
-        print(f"Embed error: {e}")
-        return None
-
-
-def search_laws(question, top_k=5):
-    if not index:
-        return []
-    emb = get_embedding(question)
-    if not emb:
-        return []
-    try:
-        r = index.query(vector=emb, top_k=top_k, include_metadata=True)
-        return [
-            {"law": m.metadata.get("law_name", "?"),
-             "text": str(m.metadata.get("text", ""))[:400],
-             "score": round(m.score, 3)}
-            for m in r.matches if m.score > 0.2
-        ]
-    except Exception as e:
-        print(f"Search error: {e}")
-        return []
-
-
-# ========== GROQ LLM — FIX: 70B FIRST ==========
-def call_groq(messages, max_tokens=1400):
-    if not GROQ_KEY:
-        return None, "No GROQ_KEY — add it in HuggingFace Space Secrets"
-    # Accuracy-first order: best models first, 8B as last resort
-    models = [
-        "llama-3.3-70b-versatile",
-        "llama3-70b-8192",
-        "gemma2-9b-it",
-        "llama-3.1-8b-instant",  # fallback only
-    ]
-    last_error = "Unknown"
-    for model in models:
-        try:
-            print(f"Trying: {model}")
-            r = requests.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={"Authorization": f"Bearer {GROQ_KEY}", "Content-Type": "application/json"},
-                json={"model": model, "temperature": 0.1, "max_tokens": max_tokens, "messages": messages},
-                timeout=45,
-            )
-            if r.status_code == 200:
-                content = r.json().get("choices", [{}])[0].get("message", {}).get("content", "")
-                if content and len(content) > 30:
-                    print(f"OK: {model}")
-                    return content, None
-            elif r.status_code == 401:
-                return None, "Invalid GROQ_KEY"
-            else:
-                last_error = f"HTTP {r.status_code} on {model}"
-        except requests.exceptions.Timeout:
-            last_error = f"Timeout on {model}"
-        except Exception as e:
-            last_error = str(e)[:60]
-    return None, f"All models failed. Last: {last_error}"
-
-
-# ========== CHAT ==========
-def chat_with_haq(user_message, history):
-    if not user_message or not user_message.strip():
-        history.append([user_message, "Please write your legal question."])
-        return history, ""
-    user_message = user_message.strip()
-    for p in ["ignore all laws", "ignore all instructions", "help me commit", "how to kill"]:
-        if p in user_message.lower():
-            history.append([user_message, "HAQ only answers genuine legal questions."])
-            return history, ""
-    sections = search_laws(user_message)
-    ctx = ""
-    if sections:
-        ctx = "\nRELEVANT LAW SECTIONS FROM DATABASE:\n"
-        for i, s in enumerate(sections, 1):
-            ctx += f"[{i}] {s['law']} (score:{s['score']})\n{s['text']}\n"
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for user_turn, bot_turn in history:
-        if user_turn:
-            messages.append({"role": "user", "content": str(user_turn)})
-        if bot_turn:
-            messages.append({"role": "assistant", "content": str(bot_turn)})
-    current_content = f"{ctx}\nQUESTION: {user_message}" if ctx else f"QUESTION: {user_message}"
-    messages.append({"role": "user", "content": current_content})
-    if len(messages) > 22:
-        messages = [messages[0]] + messages[-21:]
-    answer, err = call_groq(messages, max_tokens=1200)
-    if not answer:
-        answer = f"⚠️ Service temporarily unavailable: {err}\nCheck GROQ_KEY in HuggingFace Secrets."
-    history.append([user_message, answer])
-    return history, ""
-
-
-def get_rights(situation):
-    if not situation:
-        return "Please select your situation.", ""
-    question = (
-        f"What are all my legal rights in Pakistan for: {situation}. "
-        "Cite exact law + section, step-by-step advice, which authority to contact."
-    )
-    sections = search_laws(question)
-    ctx = "RELEVANT LAW SECTIONS:\n"
-    if sections:
-        for i, s in enumerate(sections, 1):
-            ctx += f"[{i}] {s['law']}\n{s['text']}\n"
-    msgs = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"{ctx}\nQUESTION: {question}"},
-    ]
-    answer, err = call_groq(msgs)
-    if answer:
-        return answer, build_verify_html(answer)
-    return f"⚠️ {err}", ""
-
-
-# ========== FEEDBACK ==========
-def save_feedback(history, rating):
-    if not history:
-        return "No conversation to rate."
-    try:
-        last_q = history[-1][0] if history else ""
-        with open("/tmp/feedback.json", "a") as f:
-            f.write(json.dumps({"q": str(last_q)[:100], "r": rating, "t": str(datetime.now())}) + "\n")
-    except Exception:
-        pass
-    return "✓ Thank you!" if rating == "good" else "✓ Noted, we will improve."
-
-
-# ========== PDF GENERATION ==========
-def generate_pdf_file(letter_body, your_name, other_name, your_address, letter_type):
-    try:
-        path = f"/tmp/HAQ_Legal_Notice_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-        doc = SimpleDocTemplate(path, pagesize=A4,
-                                rightMargin=2.5*cm, leftMargin=2.5*cm,
-                                topMargin=2*cm, bottomMargin=2*cm)
-        story = []
-        s = getSampleStyleSheet()
-
-        def st(name, **kw):
-            base = kw.pop("parent", s["Normal"])
-            return ParagraphStyle(name, parent=base, **kw)
-
-        S_HDR  = st("H",  fontSize=16, fontName="Helvetica-Bold", alignment=TA_CENTER, textColor=colors.white)
-        S_SUB  = st("Su", fontSize=9,  fontName="Helvetica-Oblique", alignment=TA_CENTER, textColor=colors.HexColor("#666"), spaceAfter=4)
-        S_REF  = st("Rf", fontSize=9,  fontName="Helvetica", textColor=colors.HexColor("#555"))
-        S_REFR = st("Rr", fontSize=9,  fontName="Helvetica", alignment=TA_RIGHT, textColor=colors.HexColor("#555"))
-        S_PL   = st("PL", fontSize=10, fontName="Helvetica", textColor=colors.HexColor("#1a1a2e"), leading=17)
-        S_PR   = st("PR", fontSize=10, fontName="Helvetica", alignment=TA_RIGHT, textColor=colors.HexColor("#8B0000"), leading=17)
-        S_MODE = st("MD", fontSize=8,  fontName="Helvetica-Bold", alignment=TA_CENTER, textColor=colors.HexColor("#555"), spaceAfter=8)
-        S_SUBJ = st("SJ", fontSize=10, fontName="Helvetica-Bold", alignment=TA_CENTER, textColor=colors.HexColor("#8B0000"), spaceAfter=8)
-        S_BOLD = st("BB", fontSize=10, fontName="Helvetica-Bold", spaceAfter=4)
-        S_BODY = st("B",  fontSize=10, fontName="Helvetica", alignment=TA_JUSTIFY, spaceAfter=9, leading=17, textColor=colors.HexColor("#1a1a1a"))
-        S_SIGN = st("SG", fontSize=10, fontName="Helvetica", leading=17)
-        S_SIGNR= st("SR", fontSize=10, fontName="Helvetica", alignment=TA_RIGHT, leading=17)
-        S_ACKH = st("AH", fontSize=9,  fontName="Helvetica-Bold", alignment=TA_CENTER, textColor=colors.HexColor("#333"))
-        S_ACK  = st("AK", fontSize=9,  fontName="Helvetica", textColor=colors.HexColor("#444"), leading=15)
-        S_FOOT = st("FT", fontSize=7.5,fontName="Helvetica", alignment=TA_CENTER, textColor=colors.HexColor("#888"))
-
-        date_str = datetime.now().strftime("%d %B %Y")
-        ref_num  = f"LN/{datetime.now().year}/{datetime.now().strftime('%m%d%H%M')}"
-
-        hdr = Table([[Paragraph("⚖   LEGAL NOTICE   ⚖", S_HDR)]], colWidths=[16*cm])
-        hdr.setStyle(TableStyle([
-            ("BACKGROUND", (0,0), (-1,-1), colors.HexColor("#1a1a2e")),
-            ("ALIGN", (0,0), (-1,-1), "CENTER"),
-            ("TOPPADDING", (0,0), (-1,-1), 14), ("BOTTOMPADDING", (0,0), (-1,-1), 14),
-        ]))
-        story += [hdr, Spacer(1, 4)]
-        story.append(Paragraph("Under the Laws of the Islamic Republic of Pakistan", S_SUB))
-        story.append(HRFlowable(width="100%", thickness=2, color=colors.HexColor("#C9A84C")))
-        story.append(Spacer(1, 8))
-        story.append(Table([
-            [Paragraph(f"Ref. No: <b>{ref_num}</b>", S_REF),
-             Paragraph(f"Date: <b>{date_str}</b>", S_REFR)]
-        ], colWidths=[8*cm, 8*cm]))
-        story.append(Spacer(1, 10))
-        p = Table([[
-            Paragraph(f"<b>FROM (Murasil / Noticee):</b><br/><b>{your_name or 'Applicant'}</b><br/>{your_address or 'Pakistan'}", S_PL),
-            Paragraph(f"<b>TO (Mukhatib / Respondent):</b><br/><b>{other_name or 'Respondent'}</b><br/>Address as Known to Sender", S_PR),
-        ]], colWidths=[7.8*cm, 8.2*cm])
-        p.setStyle(TableStyle([
-            ("BACKGROUND", (0,0), (0,0), colors.HexColor("#eef2ff")),
-            ("BACKGROUND", (1,0), (1,0), colors.HexColor("#fff0f0")),
-            ("BOX", (0,0), (0,0), 0.5, colors.HexColor("#9ba8d0")),
-            ("BOX", (1,0), (1,0), 0.5, colors.HexColor("#d0a0a0")),
-            ("TOPPADDING", (0,0), (-1,-1), 10), ("BOTTOMPADDING", (0,0), (-1,-1), 10),
-            ("LEFTPADDING", (0,0), (-1,-1), 10), ("RIGHTPADDING", (0,0), (-1,-1), 10),
-            ("VALIGN", (0,0), (-1,-1), "TOP"),
-        ]))
-        story += [p, Spacer(1, 8)]
-        story.append(Paragraph("MODE OF SERVICE: REGISTERED POST A.D. / IN PERSON / COURIER", S_MODE))
-        story.append(HRFlowable(width="100%", thickness=2.5, color=colors.HexColor("#1a1a2e")))
-        story.append(Spacer(1, 10))
-        sb = Table([[Paragraph(f"SUBJECT: {letter_type.upper()}", S_SUBJ)]], colWidths=[16*cm])
-        sb.setStyle(TableStyle([
-            ("BACKGROUND", (0,0), (-1,-1), colors.HexColor("#fff5f5")),
-            ("BOX", (0,0), (-1,-1), 0.5, colors.HexColor("#e8c0c0")),
-            ("TOPPADDING", (0,0), (-1,-1), 8), ("BOTTOMPADDING", (0,0), (-1,-1), 8),
-        ]))
-        story += [sb, Spacer(1, 10)]
-        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#cccccc")))
-        story += [Spacer(1, 8), Paragraph("Sir / Madam,", S_BOLD), Spacer(1, 6)]
-        skip = ("sir/", "madam", "sincerely", "yours faithfully", "yours truly", "yours sincerely", "respectfully,", "regards,")
-        for para in [p.strip() for p in letter_body.split("\n") if p.strip()]:
-            if any(para.lower().startswith(x) for x in skip):
-                continue
-            story.append(Paragraph(para, S_BODY))
-        story += [Spacer(1, 14), HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#cccccc")), Spacer(1, 10)]
-        story.append(Paragraph("Yours faithfully,", S_BODY))
-        story.append(Spacer(1, 28))
-        story.append(Table([[
-            Paragraph(f"________________________<br/><b>{your_name or 'Applicant'}</b><br/><i>Noticee / Applicant</i>", S_SIGN),
-            Paragraph("________________________<br/><b>Advocate / Legal Counsel</b><br/><i>(If applicable)</i>", S_SIGNR),
-        ]], colWidths=[8*cm, 8*cm]))
-        story.append(Spacer(1, 20))
-        ack_h = Table([[Paragraph("✦  ACKNOWLEDGEMENT OF RECEIPT  ✦", S_ACKH)]], colWidths=[16*cm])
-        ack_h.setStyle(TableStyle([
-            ("BACKGROUND", (0,0), (-1,-1), colors.HexColor("#f5f5f5")),
-            ("BOX", (0,0), (-1,-1), 0.5, colors.HexColor("#aaaaaa")),
-            ("TOPPADDING", (0,0), (-1,-1), 7), ("BOTTOMPADDING", (0,0), (-1,-1), 7),
-        ]))
-        story.append(ack_h)
-        ack_b = Table([[Paragraph(
-            f"I, <b>{other_name or 'Respondent'}</b>, hereby acknowledge receipt of this Legal Notice on "
-            f"_____________ at _____________.<br/><br/>"
-            f"Signature: _________________________   Date: _________________________<br/><br/>"
-            f"Witness: _________________________", S_ACK)
-        ]], colWidths=[16*cm])
-        ack_b.setStyle(TableStyle([
-            ("BOX", (0,0), (-1,-1), 0.5, colors.HexColor("#aaaaaa")),
-            ("TOPPADDING", (0,0), (-1,-1), 10), ("BOTTOMPADDING", (0,0), (-1,-1), 10),
-            ("LEFTPADDING", (0,0), (-1,-1), 12), ("RIGHTPADDING", (0,0), (-1,-1), 12),
-        ]))
-        story += [ack_b, Spacer(1, 12)]
-        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#cccccc")))
-        story.append(Paragraph(
-            f"Generated by HAQ — Pakistan Legal AI  |  {date_str}  |  Ref: {ref_num}  |  "
-            "General information only. Consult a licensed Vakeel for court matters.", S_FOOT))
-        doc.build(story)
-        return path
-    except Exception as e:
-        print(f"PDF error: {e}")
-        return None
-
-
-# ========== DOCX GENERATION ==========
-def generate_docx_file(letter_body, your_name, other_name, your_address, letter_type):
-    try:
-        path = f"/tmp/HAQ_Legal_Notice_{datetime.now().strftime('%Y%m%d_%H%M%S')}.docx"
-        doc = DocxDocument()
-        sec = doc.sections[0]
-        sec.page_width = DocxCm(21); sec.page_height = DocxCm(29.7)
-        sec.left_margin = DocxCm(2.8); sec.right_margin = DocxCm(2.8)
-        sec.top_margin = DocxCm(2); sec.bottom_margin = DocxCm(2)
-        date_str = datetime.now().strftime("%d %B %Y")
-        ref_num  = f"LN/{datetime.now().year}/{datetime.now().strftime('%m%d%H%M')}"
-
-        def add_para(text="", bold=False, italic=False, size=11,
-                     align=WD_ALIGN_PARAGRAPH.LEFT, color=None,
-                     space_before=0, space_after=6, font_name="Times New Roman"):
-            p = doc.add_paragraph()
-            p.alignment = align
-            p.paragraph_format.space_before = Pt(space_before)
-            p.paragraph_format.space_after  = Pt(space_after)
-            if text:
-                r = p.add_run(text)
-                r.bold = bold; r.italic = italic
-                r.font.name = font_name; r.font.size = Pt(size)
-                if color:
-                    r.font.color.rgb = RGBColor(*color)
-            return p
-
-        def shade_para(para, hex_color):
-            shd = OxmlElement("w:shd")
-            shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto"); shd.set(qn("w:fill"), hex_color)
-            para._p.get_or_add_pPr().append(shd)
-
-        def add_border(para, side="bottom", sz=6, color="000000"):
-            pPr = para._p.get_or_add_pPr()
-            pBdr = OxmlElement("w:pBdr")
-            bd = OxmlElement(f"w:{side}")
-            bd.set(qn("w:val"), "single"); bd.set(qn("w:sz"), str(sz))
-            bd.set(qn("w:space"), "1"); bd.set(qn("w:color"), color)
-            pBdr.append(bd); pPr.append(pBdr)
-
-        def no_border(cell):
-            tc = cell._tc; tcPr = tc.get_or_add_tcPr(); tcBdr = OxmlElement("w:tcBorders")
-            for side in ("top","left","bottom","right","insideH","insideV"):
-                bd = OxmlElement(f"w:{side}"); bd.set(qn("w:val"), "none"); tcBdr.append(bd)
-            tcPr.append(tcBdr)
-
-        def cell_fill(cell, fill):
-            tc = cell._tc; tcPr = tc.get_or_add_tcPr()
-            shd = OxmlElement("w:shd")
-            shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto"); shd.set(qn("w:fill"), fill)
-            tcPr.append(shd)
-
-        hdr = add_para("⚖   LEGAL NOTICE   ⚖", bold=True, size=18,
-                       align=WD_ALIGN_PARAGRAPH.CENTER, space_after=2,
-                       color=(255,255,255), font_name="Arial")
-        shade_para(hdr, "1a1a2e")
-        add_para("Under the Laws of the Islamic Republic of Pakistan", italic=True, size=9,
-                 align=WD_ALIGN_PARAGRAPH.CENTER, space_after=4, color=(100,100,100), font_name="Arial")
-        sep1 = add_para("", space_after=6); add_border(sep1, "bottom", sz=18, color="C9A84C")
-
-        t_rd = doc.add_table(rows=1, cols=2); t_rd.style = "Table Grid"
-        c0, c1 = t_rd.rows[0].cells
-        c0.text = f"Ref. No: {ref_num}"; c1.text = f"Date: {date_str}"
-        c1.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        for c in [c0, c1]:
-            for r in c.paragraphs:
-                for run in r.runs: run.font.size = Pt(9)
-            no_border(c)
-        doc.add_paragraph("")
-
-        t_p = doc.add_table(rows=1, cols=2); t_p.style = "Table Grid"
-        lc, rc = t_p.rows[0].cells
-        lp = lc.paragraphs[0]; lp.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        r1 = lp.add_run("FROM (Murasil / Noticee):\n"); r1.bold=True; r1.font.size=Pt(9); r1.font.color.rgb=RGBColor(26,26,46)
-        r2 = lp.add_run(f"{your_name or 'Applicant'}\n{your_address or 'Pakistan'}"); r2.font.size=Pt(10); r2.bold=True
-        rp = rc.paragraphs[0]; rp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        r3 = rp.add_run("TO (Mukhatib / Respondent):\n"); r3.bold=True; r3.font.size=Pt(9); r3.font.color.rgb=RGBColor(139,0,0)
-        r4 = rp.add_run(f"{other_name or 'Respondent'}\nAddress as Known to Sender"); r4.font.size=Pt(10); r4.bold=True; r4.font.color.rgb=RGBColor(139,0,0)
-        cell_fill(lc, "eef2ff"); cell_fill(rc, "fff0f0")
-        doc.add_paragraph("")
-
-        mode = add_para("MODE OF SERVICE: REGISTERED POST A.D. / IN PERSON / COURIER",
-                        bold=True, size=8, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=4,
-                        color=(80,80,80), font_name="Arial")
-        sep2 = add_para("", space_after=8); add_border(sep2, "bottom", sz=24, color="1a1a2e")
-        subj = add_para(f"SUBJECT: {letter_type.upper()}", bold=True, size=11,
-                        align=WD_ALIGN_PARAGRAPH.CENTER, space_after=8, color=(139,0,0), font_name="Arial")
-        shade_para(subj, "fff5f5")
-        sep3 = add_para("", space_before=0, space_after=8); add_border(sep3, "bottom", sz=4, color="cccccc")
-        add_para("Sir / Madam,", bold=True, size=11, space_after=8, font_name="Times New Roman")
-
-        skip = ("sir/","madam","sincerely","yours faithfully","yours truly","yours sincerely","respectfully,","regards,")
-        for para_text in [p.strip() for p in letter_body.split("\n") if p.strip()]:
-            if any(para_text.lower().startswith(x) for x in skip):
-                continue
-            add_para(para_text, size=11, align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=9, font_name="Times New Roman")
-
-        sep4 = add_para("", space_after=8); add_border(sep4, "bottom", sz=4, color="cccccc")
-        add_para("Yours faithfully,", size=11, space_after=24, font_name="Times New Roman")
-        t_sg = doc.add_table(rows=1, cols=2); t_sg.style = "Table Grid"
-        sc0, sc1 = t_sg.rows[0].cells
-        sc0.text = f"________________________\n{your_name or 'Applicant'}\nNoticee / Applicant"
-        sc1.text = "________________________\nAdvocate / Legal Counsel\n(If applicable)"
-        sc1.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        no_border(sc0); no_border(sc1)
-        doc.add_paragraph("")
-
-        ack_h = add_para("✦  ACKNOWLEDGEMENT OF RECEIPT  ✦", bold=True, size=10,
-                         align=WD_ALIGN_PARAGRAPH.CENTER, space_after=0, color=(60,60,60), font_name="Arial")
-        shade_para(ack_h, "f3f3f3")
-        add_para(
-            f"I, {other_name or 'Respondent'}, hereby acknowledge receipt of this Legal Notice "
-            f"on _____________ at _____________.\n"
-            f"Signature: _________________________     Date: _________________________\n"
-            f"Witness: _________________________",
-            size=9.5, space_after=4, font_name="Times New Roman", color=(60,60,60))
-        doc.add_paragraph("")
-        foot = add_para(
-            f"Generated by HAQ — Pakistan Legal AI  |  {date_str}  |  Ref: {ref_num}  |  "
-            "General information only. Consult a licensed Vakeel for court matters.",
-            size=7.5, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=0, color=(140,140,140), font_name="Arial")
-        add_border(foot, "top", sz=4, color="cccccc")
-        doc.save(path)
-        return path
-    except Exception as e:
-        print(f"DOCX error: {e}")
-        return None
-
-
-def generate_letter(situation, letter_type, your_name, other_name, your_address):
-    if not situation or not letter_type:
-        return "Please fill in your situation and select letter type.", "", None, None
-    prompt = (
-        f"Generate a professional Pakistani legal notice body.\n"
-        f"Letter Type: {letter_type}\n"
-        f"From: {your_name or 'Applicant'}, {your_address or 'Pakistan'}\n"
-        f"To: {other_name or 'Respondent'}\n"
-        f"Facts: {situation}\n"
-        "Write ONLY the 6 body paragraphs. Do NOT include greeting, closing, or signature."
-    )
-    msgs = [
-        {"role": "system", "content": LETTER_SYSTEM_PROMPT},
-        {"role": "user", "content": prompt},
-    ]
-    body_text, err = call_groq(msgs, max_tokens=1400)
-    if not body_text:
-        return f"⚠️ {err}", "", None, None
-    date_str = datetime.now().strftime("%d %B %Y")
-    ref_num  = f"LN/{datetime.now().year}/{datetime.now().strftime('%m%d%H%M')}"
-    display_text = (
-        f"╔══════════════════════════════════════════════════════════╗\n"
-        f"║              ⚖  LEGAL NOTICE  ⚖                          ║\n"
-        f"║     Under the Laws of Islamic Republic of Pakistan        ║\n"
-        f"╚══════════════════════════════════════════════════════════╝\n"
-        f"Ref. No: {ref_num}                          Date: {date_str}\n"
-        f"FROM:  {your_name or 'Applicant'}\n"
-        f"       {your_address or 'Pakistan'}\n"
-        f"TO:    {other_name or 'Respondent'}\n"
-        f"       [Address as Known to Sender]\n"
-        f"MODE:  REGISTERED POST A.D. / IN PERSON\n"
-        f"{'─'*60}\n"
-        f"SUBJECT: {letter_type.upper()}\n"
-        f"{'─'*60}\n"
-        f"Sir / Madam,\n"
-        f"{body_text}\n"
-        f"Yours faithfully,\n"
-        f"________________________          ________________________\n"
-        f"{your_name or 'Applicant':<30}  Advocate / Legal Counsel\n"
-        f"Noticee / Applicant               (If applicable)\n"
-        f"{'─'*60}\n"
-        f"ACKNOWLEDGEMENT OF RECEIPT\n"
-        f"{'─'*60}\n"
-        f"I, {other_name or 'Respondent'}, acknowledge receipt on _____________ at _____________.\n"
-        f"Signature: _________________________   Date: _________________________\n"
-        f"Witness:   _________________________\n"
-        f"{'─'*60}\n"
-        f"Generated by HAQ — Pakistan Legal AI\n"
-        f"Send via Registered Post A.D. Consult a licensed Vakeel for court filings.\n"
-        f"{'─'*60}"
-    )
-    pdf_path  = generate_pdf_file(body_text, your_name, other_name, your_address, letter_type)
-    docx_path = generate_docx_file(body_text, your_name, other_name, your_address, letter_type)
-    verify    = build_verify_html(body_text)
-    return display_text, verify, pdf_path, docx_path
-
-
-# ========== LOCATION DATA ==========
-PAKISTAN_CITIES = {
-    "Karachi":        {"province":"Sindh","high_court":"Sindh High Court, Karachi","district_courts":["City Court Karachi","Malir District Court","West District Court","East District Court","South District Court"],"legal_aid":[{"name":"Sindh Legal Empowerment Program (SLEP)","contact":"021-99204211"},{"name":"Legal Aid Society Karachi","contact":"021-35830041"},{"name":"SHRC Legal Aid Cell","contact":"021-99203351"},{"name":"Sindh Bar Council","contact":"021-99207051"}],"police":["Central Police Office, Karachi","Sindh Police HQ, Garden"],"lawyer_contact":"Sindh Bar Council: 021-99207051 | Karachi Bar: 021-32727232"},
-    "Hyderabad":      {"province":"Sindh","high_court":"Sindh High Court Circuit Bench Hyderabad","district_courts":["District Court Hyderabad","Sessions Court Hyderabad"],"legal_aid":[{"name":"Hyderabad District Legal Aid Committee","contact":"022-9200500"},{"name":"Sindh Legal Empowerment Program","contact":"021-99204211"}],"police":["Hyderabad Police HQ","Sindh Police Hyderabad Region"],"lawyer_contact":"Hyderabad Bar Association: 022-2730271"},
-    "Sukkur":         {"province":"Sindh","high_court":"Sindh High Court Circuit Bench Sukkur","district_courts":["District Court Sukkur","Sessions Court Sukkur"],"legal_aid":[{"name":"Sukkur District Legal Aid Committee","contact":"071-9310363"},{"name":"Legal Aid Society Sukkur","contact":"071-5806444"}],"police":["Sukkur Police HQ","Sindh Police Sukkur Region"],"lawyer_contact":"Sukkur Bar Association: 071-9310363"},
-    "Larkana":        {"province":"Sindh","high_court":"Sindh High Court Circuit Bench Larkana","district_courts":["District Court Larkana"],"legal_aid":[{"name":"Larkana District Legal Aid Committee","contact":"074-9410575"}],"police":["Larkana Police HQ"],"lawyer_contact":"Larkana Bar Association: 074-9410575"},
-    "Lahore":         {"province":"Punjab","high_court":"Lahore High Court, Principal Seat","district_courts":["District Court Lahore","Model Town Court","Cantt Court Lahore","Sessions Court Lahore"],"legal_aid":[{"name":"Punjab Legal Empowerment & Justice Dept","contact":"042-99210012"},{"name":"Dastak Legal Aid (Free Helpline)","contact":"0800-22247"},{"name":"AGHS Legal Aid Cell","contact":"042-35883494"},{"name":"Punjab Bar Council","contact":"042-99210012"}],"police":["Lahore Police HQ, Qila Gujjar Singh","Punjab Police HQ, Lahore"],"lawyer_contact":"Punjab Bar Council: 042-99210012 | Lahore Bar: 042-37350591"},
-    "Rawalpindi":     {"province":"Punjab","high_court":"Lahore High Court Rawalpindi Bench","district_courts":["District Court Rawalpindi","Sessions Court Rawalpindi"],"legal_aid":[{"name":"Rawalpindi District Legal Aid Committee","contact":"051-9290321"},{"name":"Dastak Legal Aid","contact":"0800-22247"}],"police":["Rawalpindi Police HQ","Punjab Police Rawalpindi Region"],"lawyer_contact":"Rawalpindi Bar Association: 051-9290321"},
-    "Faisalabad":     {"province":"Punjab","high_court":"Lahore High Court Faisalabad Bench","district_courts":["District Court Faisalabad"],"legal_aid":[{"name":"Faisalabad District Legal Aid Committee","contact":"041-9200300"}],"police":["Faisalabad Police HQ"],"lawyer_contact":"Faisalabad Bar Association: 041-9200300"},
-    "Multan":         {"province":"Punjab","high_court":"Lahore High Court Multan Bench","district_courts":["District Court Multan","Sessions Court Multan"],"legal_aid":[{"name":"Multan District Legal Aid Committee","contact":"061-9200300"},{"name":"Dastak Legal Aid","contact":"0800-22247"}],"police":["Multan Police HQ","Punjab Police Multan Region"],"lawyer_contact":"Multan Bar Association: 061-9200300"},
-    "Gujranwala":     {"province":"Punjab","high_court":"Lahore High Court Gujranwala Bench","district_courts":["District Court Gujranwala"],"legal_aid":[{"name":"Gujranwala District Legal Aid Committee","contact":"055-9200555"}],"police":["Gujranwala Police HQ"],"lawyer_contact":"Gujranwala Bar Association: 055-9200555"},
-    "Sargodha":       {"province":"Punjab","high_court":"Lahore High Court Sargodha Bench","district_courts":["District Court Sargodha"],"legal_aid":[{"name":"Sargodha District Legal Aid Committee","contact":"048-9200300"}],"police":["Sargodha Police HQ"],"lawyer_contact":"Sargodha Bar Association: 048-9200300"},
-    "Bahawalpur":     {"province":"Punjab","high_court":"Lahore High Court Bahawalpur Bench","district_courts":["District Court Bahawalpur"],"legal_aid":[{"name":"Bahawalpur District Legal Aid Committee","contact":"062-9200300"}],"police":["Bahawalpur Police HQ"],"lawyer_contact":"Bahawalpur Bar Association: 062-9200300"},
-    "Peshawar":       {"province":"Khyber Pakhtunkhwa","high_court":"Peshawar High Court, Principal Seat","district_courts":["District Court Peshawar","Sessions Court Peshawar"],"legal_aid":[{"name":"KPK Legal Aid Services","contact":"091-9210315"},{"name":"Peshawar District Legal Aid Committee","contact":"091-9210315"},{"name":"KPK Bar Council","contact":"091-9210315"}],"police":["Peshawar Police HQ","KPK Police HQ"],"lawyer_contact":"KPK Bar Council: 091-9210315"},
-    "Mardan":         {"province":"Khyber Pakhtunkhwa","high_court":"Peshawar High Court Mardan Bench","district_courts":["District Court Mardan"],"legal_aid":[{"name":"Mardan District Legal Aid Committee","contact":"0937-9200300"}],"police":["Mardan Police HQ"],"lawyer_contact":"Mardan Bar Association: 0937-9200300"},
-    "Swat / Mingora": {"province":"Khyber Pakhtunkhwa","high_court":"Peshawar High Court Swat Bench","district_courts":["District Court Swat (Mingora)"],"legal_aid":[{"name":"Swat District Legal Aid Committee","contact":"0946-9200300"}],"police":["Swat Police HQ, Mingora"],"lawyer_contact":"Swat Bar Association: 0946-9200300"},
-    "Abbottabad":     {"province":"Khyber Pakhtunkhwa","high_court":"Peshawar High Court Abbottabad Bench","district_courts":["District Court Abbottabad"],"legal_aid":[{"name":"Abbottabad District Legal Aid Committee","contact":"0992-9200300"}],"police":["Abbottabad Police HQ"],"lawyer_contact":"Abbottabad Bar Association: 0992-9200300"},
-    "Quetta":         {"province":"Balochistan","high_court":"High Court of Balochistan, Quetta","district_courts":["District Court Quetta","Sessions Court Quetta"],"legal_aid":[{"name":"Balochistan Legal Aid Services","contact":"081-9200300"},{"name":"Balochistan Bar Council","contact":"081-9200300"}],"police":["Quetta Police HQ","Balochistan Police HQ"],"lawyer_contact":"Balochistan Bar Council: 081-9200300"},
-    "Gwadar":         {"province":"Balochistan","high_court":"High Court of Balochistan Circuit Bench Gwadar","district_courts":["District Court Gwadar"],"legal_aid":[{"name":"Gwadar District Legal Aid Committee","contact":"086-9200300"}],"police":["Gwadar Police HQ"],"lawyer_contact":"Gwadar Bar Association: 086-9200300"},
-    "Islamabad":      {"province":"Islamabad Capital Territory","high_court":"Islamabad High Court","district_courts":["District Court Islamabad","Sessions Court Islamabad","Family Court Islamabad"],"legal_aid":[{"name":"Federal Judicial Academy Legal Aid","contact":"051-9255061"},{"name":"Islamabad Bar Council","contact":"051-2823444"},{"name":"AGHS Legal Aid Cell","contact":"042-35883494"}],"police":["Islamabad Police HQ","ICT Police"],"lawyer_contact":"Islamabad Bar Council: 051-2823444"},
-    "Mirpur":         {"province":"Azad Jammu & Kashmir","high_court":"High Court of Azad Jammu & Kashmir (Mirpur Bench)","district_courts":["District Court Mirpur"],"legal_aid":[{"name":"AJK Legal Aid Committee","contact":"05827-9200300"}],"police":["Mirpur Police HQ"],"lawyer_contact":"Mirpur Bar Association: 05827-9200300"},
-    "Muzaffarabad":   {"province":"Azad Jammu & Kashmir","high_court":"High Court of Azad Jammu & Kashmir, Muzaffarabad","district_courts":["District Court Muzaffarabad"],"legal_aid":[{"name":"AJK Legal Aid Committee","contact":"05822-9200300"}],"police":["Muzaffarabad Police HQ"],"lawyer_contact":"AJK Bar Council: 05822-9200300"},
-    "Gilgit":         {"province":"Gilgit-Baltistan","high_court":"Gilgit-Baltistan Chief Court","district_courts":["District Court Gilgit"],"legal_aid":[{"name":"Gilgit-Baltistan Legal Aid","contact":"05811-9200300"}],"police":["Gilgit Police HQ"],"lawyer_contact":"Gilgit Bar Association: 05811-9200300"},
-}
-
-CITY_COORDS = {
-    "Karachi":(24.8607,67.0011),"Hyderabad":(25.3960,68.3578),"Sukkur":(27.7052,68.8574),
-    "Larkana":(27.5291,68.2126),"Lahore":(31.5204,74.3587),"Rawalpindi":(33.5651,73.0169),
-    "Faisalabad":(31.4180,73.0790),"Multan":(30.1575,71.5249),"Gujranwala":(32.1877,74.1945),
-    "Sargodha":(32.0836,72.6711),"Bahawalpur":(29.3544,71.6911),"Peshawar":(34.0150,71.5249),
-    "Mardan":(34.1982,72.0451),"Swat / Mingora":(34.7717,72.3602),"Abbottabad":(34.1688,73.2215),
-    "Quetta":(30.1798,66.9750),"Gwadar":(25.2048,62.3334),"Islamabad":(33.6844,73.0479),
-    "Mirpur":(33.1483,73.7510),"Muzaffarabad":(34.3700,73.4711),"Gilgit":(35.8815,74.4643),
-}
-
-PROVINCIAL_LAWS = {
-    "Sindh": {
-        "tenancy":"Sindh Tenancy Act 1950 — Landlord must give 2 months notice for residential eviction. Eviction only through court. Rent increase max 10% per year.",
-        "labour":"Sindh Industrial Relations Act 2013 — Separate labour courts for Sindh. Minimum wage: Rs 37,000/month (2024-25). EOBI & Sindh Social Security applicable.",
-        "family":"Sindh Family Courts Act 2013 — Family courts in every district. Khula decree typically in 3-6 months. No husband consent required for khula (MFLO Sec 8).",
-        "cyber":"PECA 2016 (Federal) applies. FIA Cyber Crime Wing Karachi handles complaints. Report at: www.ccw.gov.pk or FIA CCW Karachi.",
-        "local_gov":"Sindh Local Government Act 2013 — Union Committees handle local disputes, birth/death certificates, municipal issues.",
-        "women":"Sindh Domestic Violence (Prevention and Protection) Act 2013 — Protection orders, residence orders, and monetary relief available from court.",
-        "info":"Sindh Transparency & Right to Information Act 2016 — File RTI with any Sindh government department. Appeal to Sindh Information Commission.",
-    },
-    "Punjab": {
-        "tenancy":"Punjab Rented Premises Act 2009 — Landlord must give 2 months notice. Rent Tribunal for disputes. Rent increase max 10% per year or as per agreement.",
-        "labour":"Punjab Industrial Relations Act 2010 — Labour courts in every district. Minimum wage: Rs 37,000/month (2024-25). Punjab Social Security & EOBI.",
-        "family":"Punjab Family Courts Act 2014 — Family courts in every district. Khula decree in 3-6 months. Punjab Marriage Registration Rules 2021.",
-        "cyber":"PECA 2016 (Federal) applies. FIA Cyber Crime Wing Lahore/Rawalpindi. Punjab Safe Cities Authority for harassment complaints.",
-        "local_gov":"Punjab Local Government Act 2022 — Local councils for municipal disputes, property tax, building plans.",
-        "women":"Punjab Protection of Women Against Violence Act 2016 — Protection Centres in every district. Toll-free helpline: 1043. Violence Against Women Centres (VAWCs).",
-        "info":"Punjab Transparency & Right to Information Act 2013 — File RTI with any Punjab department. Appeal to Punjab Information Commission.",
-    },
-    "Khyber Pakhtunkhwa": {
-        "tenancy":"KPK Tenancy Act 1950 — Similar to Sindh. Eviction only through court. 2 months notice required for residential premises.",
-        "labour":"KPK Industrial Relations Act 2010 — Separate labour courts. Minimum wage: Rs 37,000/month (2024-25). KPK Employees Social Security Institution.",
-        "family":"KPK Family Courts Act 2017 — Family courts in every district. Khula and family disputes. KPK also applies MFLO 1961.",
-        "cyber":"PECA 2016 (Federal) applies. FIA Cyber Crime Peshawar. KPK Cyber Crime Unit also active.",
-        "local_gov":"KPK Local Government Act 2013 — Village and neighbourhood councils for local disputes and municipal matters.",
-        "women":"KPK Domestic Violence Against Women (Prevention and Protection) Act 2021 — Protection orders and shelters.",
-        "info":"KPK Right to Information Act 2013 — File RTI with any KPK department. Appeal to KPK Information Commission.",
-    },
-    "Balochistan": {
-        "tenancy":"Balochistan Tenancy Act 1948 — Similar provisions. Eviction through court only. 2 months notice standard.",
-        "labour":"Balochistan Industrial Relations Act 2010 — Labour courts in Quetta and major cities. Minimum wage: Rs 37,000/month (2024-25).",
-        "family":"Balochistan Family Courts Act 2014 — Family courts established in Quetta and major districts.",
-        "cyber":"PECA 2016 (Federal) applies. Limited FIA Cyber Crime presence in Quetta. Report via FIA HQ Islamabad.",
-        "local_gov":"Balochistan Local Government Act 2010 — Local councils for municipal governance.",
-        "women":"Balochistan Domestic Violence (Prevention and Protection) Act 2014 — Protection orders available.",
-        "info":"Balochistan Right to Information Act 2016 — File RTI with Balochistan government departments.",
-    },
-    "Islamabad Capital Territory": {
-        "tenancy":"Islamabad Rent Restriction Ordinance 2001 — Rent Controller for disputes. 2 months notice for eviction. Rent increase regulated.",
-        "labour":"Federal labour laws apply (Industrial Relations Act 2012). Islamabad Labour Court. Minimum wage: Rs 37,000/month (2024-25).",
-        "family":"West Pakistan Family Courts Act 1964 — Applies to ICT. Family courts in Islamabad. Also MFLO 1961 applies.",
-        "cyber":"PECA 2016. FIA HQ Cyber Crime Wing Islamabad. Direct reporting available at FIA HQ.",
-        "local_gov":"ICT Local Government Act 2015 — Metropolitan Corporation Islamabad for local governance.",
-        "women":"ICT Domestic Violence (Prevention and Protection) Act 2012 — Protection orders and support centres.",
-        "info":"Federal Right of Access to Information Act 2017 — File RTI with federal ministries. Federal Ombudsman for complaints.",
-    },
-    "Azad Jammu & Kashmir": {
-        "tenancy":"AJK Tenancy Act applies — Similar to Pakistan tenancy laws. Provincial variations exist.",
-        "labour":"AJK Industrial Relations Act — Separate labour courts. Minimum wage aligned with federal rates.",
-        "family":"AJK Family Courts Act — Family courts in Muzaffarabad, Mirpur, Rawalakot.",
-        "cyber":"PECA 2016 (Federal) applies through AJK Council. Limited local cyber crime infrastructure.",
-        "local_gov":"AJK Local Government Act — Local councils for municipal governance.",
-        "women":"AJK Domestic Violence Act — Protection mechanisms available through district courts.",
-        "info":"AJK Right to Information Act — File RTI with AJK government departments.",
-    },
-    "Gilgit-Baltistan": {
-        "tenancy":"Gilgit-Baltistan Tenancy Laws — Local adaptations of tenancy acts. Court-based eviction.",
-        "labour":"GB Labour Laws — Apply federal standards with local adaptations.",
-        "family":"GB Family Courts — Established in Gilgit and Skardu. MFLO 1961 applies.",
-        "cyber":"PECA 2016 (Federal) applies. Limited local FIA presence. Report via Islamabad.",
-        "local_gov":"GB Governance Order 2018 — Local governance framework.",
-        "women":"GB Women Protection mechanisms through district courts and social welfare.",
-        "info":"GB Right to Information framework through local governance structures.",
-    },
-}
-
-
-def get_nearest_city(lat, lon):
-    min_dist = float("inf")
-    nearest = "Islamabad"
-    for city, (c_lat, c_lon) in CITY_COORDS.items():
-        d = ((lat - c_lat)**2 + (lon - c_lon)**2) ** 0.5
-        if d < min_dist:
-            min_dist = d
-            nearest = city
-    return nearest, min_dist > 2.0
-
-
-def get_location_help(city_name):
-    if not city_name or city_name in ("Auto-detecting...", ""):
-        return "Please select your city or click Auto-Detect."
-    city = city_name.strip()
-    if city not in PAKISTAN_CITIES:
-        for c in PAKISTAN_CITIES:
-            if city.lower() in c.lower() or c.lower() in city.lower():
-                city = c
-                break
-        else:
-            return (f"⚠️ City '{city_name}' not in database.\n"
-                    f"Available: {', '.join(sorted(PAKISTAN_CITIES.keys()))}")
-    data = PAKISTAN_CITIES[city]
-    prov = data["province"]
-    pd   = PROVINCIAL_LAWS.get(prov, {})
-    out  = (
-        f"╔══════════════════════════════════════════════════════════════════════╗\n"
-        f"║  📍 LOCATION-BASED LEGAL HELP\n"
-        f"║  {city.upper()}, {prov.upper()}\n"
-        f"╚══════════════════════════════════════════════════════════════════════╝\n"
-        f"\n🏛 COURTS & LEGAL INSTITUTIONS\n"
-        f"• High Court: {data['high_court']}\n"
-        f"• District Courts: {', '.join(data['district_courts'])}\n"
-        f"\n🚔 POLICE & LAW ENFORCEMENT\n"
-        f"• {', '.join(data['police'])}\n"
-        f"\n⚖ FREE LEGAL AID & SUPPORT CENTRES\n"
-    )
-    for aid in data["legal_aid"]:
-        out += f"• {aid['name']}: {aid['contact']}\n"
-    out += f"\n📞 LOCAL LAWYER / BAR CONTACTS\n• {data['lawyer_contact']}\n"
-    out += (
-        f"\n═══════════════════════════════════════════════════════════════════════\n"
-        f"📜 PROVINCIAL LAW VARIATIONS — {prov.upper()}\n"
-        f"═══════════════════════════════════════════════════════════════════════\n"
-        f"🏠 TENANCY / RENT / LANDLORD\n{pd.get('tenancy','N/A')}\n"
-        f"\n💼 LABOUR & EMPLOYMENT\n{pd.get('labour','N/A')}\n"
-        f"\n👪 FAMILY LAW (MARRIAGE, DIVORCE, KHULA)\n{pd.get('family','N/A')}\n"
-        f"\n💻 CYBERCRIME & ONLINE HARASSMENT\n{pd.get('cyber','N/A')}\n"
-        f"\n🏘 LOCAL GOVERNMENT / MUNICIPAL\n{pd.get('local_gov','N/A')}\n"
-        f"\n👩 WOMEN'S PROTECTION & DOMESTIC VIOLENCE\n{pd.get('women','N/A')}\n"
-        f"\n📋 RIGHT TO INFORMATION (RTI)\n{pd.get('info','N/A')}\n"
-        f"\n═══════════════════════════════════════════════════════════════════════\n"
-        f"🆘 EMERGENCY & HELPLINE NUMBERS\n"
-        f"• Police Emergency: 15\n• Rescue / Ambulance: 1122\n• Fire Brigade: 16\n"
-        f"• Punjab Women Helpline: 1043\n• KPK Complaint Cell: 091-9210315\n"
-        f"• Sindh Police Helpline: 021-99204211\n• FIA Cyber Crime: 1991 (nationwide)\n"
-        f"═══════════════════════════════════════════════════════════════════════\n"
-        f"💡 KEY TAKEAWAY: Laws vary significantly by province.\n"
-        f"   Always verify with a local Vakeel before court action.\n"
-        f"═══════════════════════════════════════════════════════════════════════"
-    )
-    return out
-
-
-def process_auto_location(loc_str):
-    if not loc_str or loc_str == "manual":
-        return "Auto-detection failed or denied. Please select your city manually.", ""
-    try:
-        lat, lon = map(float, loc_str.split(","))
-        city, approx = get_nearest_city(lat, lon)
-        msg = f"📍 Detected nearest city: {city}"
-        if approx:
-            msg += " (approximate — verify manually if needed)"
-        return msg, get_location_help(city)
-    except Exception as e:
-        return f"Detection error: {str(e)}. Please select manually.", ""
-
-
-# ========== CSS (FIXED: voice/TTS styles moved outside media query) ==========
-CSS = """
-.dark, .dark body, .dark .gradio-container, .dark .wrap, .dark .panel,
-.dark .tabitem, .dark .contain, .dark .main, .dark .app {
-    background-color: #080A10 !important;
-    color: #E8ECF5 !important;
-}
-.dark *, .dark *::before, .dark *::after { color: #E8ECF5 !important; }
-.dark .haq-header, .dark .haq-header * { color: inherit !important; }
-.dark .gradio-chatbot .message.user { color: #E8ECF5 !important; }
-.dark .gradio-chatbot .message.bot  { color: #E8ECF5 !important; }
-.dark input, .dark textarea, .dark select,
-.dark .gradio-textbox textarea, .dark .gradio-textbox input {
-    background-color: #161A24 !important;
-    color: #E8ECF5 !important;
-    border-color: #252B3A !important;
-}
-.dark button.primary, .dark .gradio-button.primary {
-    background: linear-gradient(135deg, #D4AF37, #B8960C) !important;
-    color: #080A10 !important;
-}
-.dark button.secondary, .dark .gradio-button.secondary {
-    background: #161A24 !important;
-    color: #8B92A8 !important;
-    border-color: #252B3A !important;
-}
-.dark .gradio-dropdown select, .dark select {
-    background-color: #161A24 !important;
-    color: #E8ECF5 !important;
-    border-color: #252B3A !important;
-}
-.dark .gradio-radio label {
-    background: #161A24 !important;
-    border-color: #252B3A !important;
-    color: #E8ECF5 !important;
-}
-.dark .gradio-radio label.selected {
-    border-color: #D4AF37 !important;
-    background: rgba(212, 175, 55, 0.08) !important;
-}
-.dark .gr-markdown { color: #8B92A8 !important; }
-.dark .gr-markdown h2 { color: #E8ECF5 !important; }
-.dark .gr-markdown h3 { color: #D4AF37 !important; }
-.dark .gr-markdown strong { color: #e8c97a !important; }
-.dark .gr-markdown th { color: #D4AF37 !important; }
-.dark .gr-markdown td { color: #8B92A8 !important; }
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap');
-
-:root {
-    --gold:#D4AF37;--gold-light:#E8C96A;--gold-dark:#B8960C;--gold-glow:rgba(212,175,55,0.25);
-    --dark:#080A10;--surface:#0F1218;--surface-raised:#161A24;--surface-hover:#1E2330;
-    --border:#252B3A;--border-light:#2E3548;
-    --text:#E8ECF5;--text-secondary:#8B92A8;--text-muted:#5A6278;
-    --success:#2ECC71;--success-bg:rgba(46,204,113,0.08);--warning:#F39C12;--error:#E74C3C;
-    --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
-    --shadow-sm:0 1px 2px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);--shadow-lg:0 8px 32px rgba(0,0,0,0.5);
-    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
-body{background:var(--dark)!important;color:var(--text)!important;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif!important;min-height:100vh;line-height:1.6;overflow-x:hidden;}
-::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--dark);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}::-webkit-scrollbar-thumb:hover{background:var(--text-muted);}
-.gradio-container{max-width:900px!important;margin:0 auto!important;padding:0 16px!important;font-family:'Inter',sans-serif!important;background:var(--dark)!important;}
-.gradio-container .contain{padding:0!important;gap:0!important;}
-.gradio-container .wrap{background:var(--dark)!important;border:none!important;padding:0!important;}
-.gradio-container .panel{background:var(--dark)!important;border:none!important;padding:0!important;}
-
-.haq-header{background:linear-gradient(160deg,var(--surface) 0%,var(--dark) 50%,var(--surface) 100%);border-bottom:2px solid var(--gold);padding:32px 20px 24px;text-align:center;position:relative;overflow:hidden;margin:0 -16px 24px;}
-.haq-header::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(212,175,55,0.06) 0%,transparent 70%);pointer-events:none;}
-.haq-logo-row{display:inline-flex;align-items:center;gap:14px;margin-bottom:10px;position:relative;z-index:1;}
-.haq-emblem{width:52px;height:52px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 24px var(--gold-glow),0 0 0 1px rgba(212,175,55,0.3);flex-shrink:0;}
-.haq-title{font-family:'Amiri',Georgia,serif;font-size:44px;font-weight:700;color:var(--gold);letter-spacing:3px;text-shadow:0 0 30px rgba(212,175,55,0.2);line-height:1;}
-.haq-sub{font-size:11px;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin:8px 0 18px;font-weight:500;position:relative;z-index:1;}
-.haq-stats{display:flex;justify-content:center;max-width:440px;margin:0 auto 16px;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;position:relative;z-index:1;}
-.stat{flex:1;padding:12px 8px;text-align:center;border-right:1px solid var(--border);}
-.stat:last-child{border-right:none;}
-.stat-num{display:block;font-size:18px;font-weight:700;color:var(--gold);line-height:1;}
-.stat-lbl{display:block;font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:3px;font-weight:500;}
-.haq-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:14px;position:relative;z-index:1;}
-.pill{background:rgba(212,175,55,0.08);border:1px solid var(--border);color:var(--gold);padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.3px;}
-.verify-strip{background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-md);padding:8px 16px;margin:0 auto 10px;max-width:520px;color:var(--success);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;position:relative;z-index:1;}
-.disclaimer{background:rgba(243,156,18,0.05);border:1px solid rgba(243,156,18,0.12);border-radius:var(--radius-md);padding:10px 16px;margin:0 auto 10px;max-width:520px;color:#9a8040;font-size:11px;font-weight:500;line-height:1.5;text-align:center;position:relative;z-index:1;}
-.dev-line{color:var(--text-muted);font-size:11px;margin-top:10px;position:relative;z-index:1;}
-.dev-line span{color:var(--gold);font-weight:600;}
-
-.gradio-tabs{background:var(--surface)!important;border-bottom:1px solid var(--border)!important;border-radius:0!important;padding:0!important;margin:0 -16px 20px!important;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
-.gradio-tabs .tab-nav{display:flex!important;gap:0!important;overflow-x:auto!important;scrollbar-width:none!important;-ms-overflow-style:none!important;padding:0 16px!important;max-width:900px!important;margin:0 auto!important;border:none!important;background:transparent!important;}
-.gradio-tabs .tab-nav::-webkit-scrollbar{display:none!important;}
-.gradio-tabs .tab-nav button{flex:1!important;min-width:0!important;padding:14px 12px!important;background:transparent!important;border:none!important;border-bottom:2px solid transparent!important;border-radius:0!important;color:var(--text-muted)!important;font-size:13px!important;font-weight:600!important;font-family:'Inter',sans-serif!important;white-space:nowrap!important;cursor:pointer!important;transition:var(--transition)!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;}
-.gradio-tabs .tab-nav button:hover{color:var(--text-secondary)!important;background:transparent!important;}
-.gradio-tabs .tab-nav button.selected{color:var(--gold)!important;border-bottom-color:var(--gold)!important;background:transparent!important;}
-.gradio-tabs .tabitem{background:var(--dark)!important;border:none!important;padding:0!important;}
-
-.info-banner{background:linear-gradient(135deg,rgba(212,175,55,0.06),rgba(212,175,55,0.02));border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:20px;}
-.info-banner-title{color:var(--gold);font-size:14px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-.info-banner-text{color:var(--text-muted);font-size:12px;line-height:1.7;}
-
-.gradio-chatbot{background:var(--surface)!important;border:1px solid var(--border)!important;border-radius:var(--radius-lg)!important;overflow:hidden!important;margin-bottom:16px!important;}
-.gradio-chatbot>.bubble-wrap{background:var(--surface)!important;padding:16px!important;}
-.gradio-chatbot .message.user{background:rgba(212,175,55,0.1)!important;border:1px solid rgba(212,175,55,0.2)!important;border-radius:16px 16px 4px 16px!important;color:var(--text)!important;padding:14px 18px!important;margin-left:48px!important;margin-bottom:12px!important;line-height:1.8!important;font-size:14px!important;}
-.gradio-chatbot .message.bot{background:var(--surface-raised)!important;border:1px solid var(--border)!important;border-radius:16px 16px 16px 4px!important;color:var(--text)!important;padding:14px 18px!important;margin-right:32px!important;margin-bottom:12px!important;line-height:1.8!important;font-size:14px!important;}
-
-input[type="text"],textarea,.gradio-textbox textarea,.gradio-textbox input{background:var(--surface-raised)!important;border:1px solid var(--border)!important;border-radius:var(--radius-md)!important;color:var(--text)!important;font-size:14px!important;font-family:'Inter',sans-serif!important;padding:14px 16px!important;line-height:1.6!important;outline:none!important;transition:var(--transition)!important;}
-input[type="text"]:focus,textarea:focus,.gradio-textbox textarea:focus,.gradio-textbox input:focus{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(212,175,55,0.1)!important;}
-input[type="text"]::placeholder,textarea::placeholder{color:var(--text-muted)!important;font-size:13px!important;}
-
-.gradio-textbox label,.gradio-dropdown label,.gradio-radio label{color:var(--text-secondary)!important;font-size:11px!important;font-weight:600!important;text-transform:uppercase!important;letter-spacing:0.5px!important;margin-bottom:8px!important;}
-
-button.primary,.gradio-button.primary{background:linear-gradient(135deg,var(--gold),var(--gold-dark))!important;color:var(--dark)!important;border:none!important;border-radius:var(--radius-md)!important;padding:14px 24px!important;font-size:14px!important;font-weight:700!important;font-family:'Inter',sans-serif!important;cursor:pointer!important;transition:var(--transition)!important;box-shadow:0 4px 16px var(--gold-glow)!important;width:100%!important;}
-button.primary:hover,.gradio-button.primary:hover{filter:brightness(1.08)!important;transform:translateY(-1px)!important;box-shadow:0 6px 24px var(--gold-glow)!important;}
-button.secondary,.gradio-button.secondary{background:var(--surface-raised)!important;color:var(--text-secondary)!important;border:1px solid var(--border)!important;border-radius:var(--radius-md)!important;padding:12px 20px!important;font-size:13px!important;font-weight:600!important;font-family:'Inter',sans-serif!important;cursor:pointer!important;transition:var(--transition)!important;width:100%!important;}
-button.secondary:hover,.gradio-button.secondary:hover{background:var(--surface-hover)!important;border-color:var(--border-light)!important;color:var(--text)!important;}
-
-.gradio-dropdown select,select{background:var(--surface-raised)!important;border:1px solid var(--border)!important;border-radius:var(--radius-md)!important;color:var(--text)!important;font-size:14px!important;font-family:'Inter',sans-serif!important;padding:14px 40px 14px 16px!important;width:100%!important;outline:none!important;transition:var(--transition)!important;appearance:none!important;-webkit-appearance:none!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235A6278' d='M6 8L1 3h10z'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:right 16px center!important;cursor:pointer!important;}
-.gradio-dropdown select:focus,select:focus{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(212,175,55,0.1)!important;}
-
-.gradio-radio{display:flex!important;flex-direction:column!important;gap:8px!important;}
-.gradio-radio label{background:var(--surface-raised)!important;border:1px solid var(--border)!important;border-radius:var(--radius-md)!important;padding:13px 15px!important;color:var(--text)!important;font-size:13px!important;cursor:pointer!important;display:flex!important;align-items:center!important;gap:10px!important;margin:0!important;min-height:50px;transition:var(--transition)!important;}
-.gradio-radio label:hover{border-color:var(--border-light)!important;background:rgba(212,175,55,0.05)!important;}
-.gradio-radio label.selected{border-color:var(--gold)!important;background:rgba(212,175,55,0.08)!important;}
-
-.answer-box textarea{background:var(--surface)!important;border:1px solid var(--border)!important;border-radius:var(--radius-lg)!important;color:var(--text)!important;font-size:13px!important;line-height:1.85!important;padding:20px!important;font-family:'Courier New',monospace!important;}
-
-.gr-markdown{color:var(--text-secondary)!important;line-height:1.8!important;font-size:14px!important;}
-.gr-markdown h2{color:var(--text)!important;font-size:22px!important;font-weight:700!important;border-bottom:1px solid var(--border)!important;padding-bottom:10px!important;margin:24px 0 14px!important;}
-.gr-markdown h3{color:var(--gold)!important;font-size:15px!important;font-weight:600!important;margin-top:18px!important;}
-.gr-markdown strong{color:#e8c97a!important;}
-.gr-markdown table{width:100%!important;border-collapse:collapse!important;margin:14px 0!important;}
-.gr-markdown th{background:var(--surface-raised)!important;color:var(--gold)!important;padding:10px 12px!important;font-size:11px!important;font-weight:600!important;text-transform:uppercase!important;}
-.gr-markdown td{padding:10px 12px!important;border-bottom:1px solid var(--border)!important;color:var(--text-secondary)!important;font-size:13px!important;}
-.gr-markdown blockquote{border-left:3px solid var(--gold)!important;padding:10px 14px!important;margin:14px 0!important;background:rgba(212,175,55,0.05)!important;color:var(--text-secondary)!important;}
-
-.download-banner{background:rgba(212,175,55,0.06);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:14px 18px;margin:16px 0 8px;}
-.download-title{color:var(--gold);font-size:13px;font-weight:700;margin-bottom:4px;}
-
-/* ── Voice / TTS styles (FIXED: outside media query) ── */
-.voice-status input {
-    background: rgba(212,175,55,0.08) !important;
-    border: 1px solid rgba(212,175,55,0.3) !important;
-    color: #D4AF37 !important;
-    text-align: center !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-}
-.dark .voice-status input {
-    background: rgba(212,175,55,0.08) !important;
-    border: 1px solid rgba(212,175,55,0.3) !important;
-    color: #D4AF37 !important;
-}
-.tts-audio {
-    background: var(--surface-raised) !important;
-    border: 1px solid rgba(212,175,55,0.3) !important;
-    border-radius: var(--radius-md) !important;
-    margin-top: 8px !important;
-}
-.gradio-audio {
-    background: var(--surface-raised) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius-md) !important;
-}
-.gradio-audio .record-button {
-    background: linear-gradient(135deg, #D4AF37, #B8960C) !important;
-    color: #080A10 !important;
-    border-radius: 50% !important;
-    width: 44px !important;
-    height: 44px !important;
-}
-.gradio-audio .stop-button {
-    background: #E74C3C !important;
-    color: white !important;
-    border-radius: 50% !important;
-    width: 44px !important;
-    height: 44px !important;
-}
-/* ── end voice/TTS styles ── */
-
-.gradio-file{background:var(--surface-raised)!important;border:1px solid var(--border)!important;border-radius:var(--radius-md)!important;padding:16px!important;}
-.gradio-row{gap:12px!important;}
-.gradio-column{gap:12px!important;}
-
-@media (max-width: 768px) {
-    .haq-title{font-size:34px;}
-    .haq-stats{max-width:320px;}
-    .gradio-tabs .tab-nav button{padding:11px 10px!important;font-size:12px!important;}
-    .gradio-chatbot .message.user{margin-left:20px!important;}
-    .gradio-chatbot .message.bot{margin-right:10px!important;}
-    .gradio-row{flex-direction:column!important;}
-}
-
-@media (max-width: 480px) {
-    .haq-title{font-size:28px;}
-    .haq-emblem{width:42px;height:42px;font-size:20px;}
-    .haq-sub{font-size:10px;letter-spacing:2px;}
-    .pill{padding:4px 10px;font-size:10px;}
-    .stat-num{font-size:16px;}
-    .stat-lbl{font-size:8px;}
-}
-"""
-
-
-class DarkTheme(gr.themes.Base):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.name = "haq_dark"
-        super().set(
-            body_background_fill="#080A10",
-            body_background_fill_dark="#080A10",
-            body_text_color="#E8ECF5",
-            body_text_color_dark="#E8ECF5",
-            background_fill_primary="#080A10",
-            background_fill_primary_dark="#080A10",
-            background_fill_secondary="#0F1218",
-            background_fill_secondary_dark="#0F1218",
-            block_background_fill="#0F1218",
-            block_background_fill_dark="#0F1218",
-            block_border_color="#252B3A",
-            block_border_color_dark="#252B3A",
-            input_background_fill="#161A24",
-            input_background_fill_dark="#161A24",
-            input_border_color="#252B3A",
-            input_border_color_dark="#252B3A",
-            button_primary_background_fill="#D4AF37",
-            button_primary_background_fill_dark="#D4AF37",
-            button_primary_text_color="#080A10",
-            button_primary_text_color_dark="#080A10",
-            button_secondary_background_fill="#161A24",
-            button_secondary_background_fill_dark="#161A24",
-            button_secondary_text_color="#8B92A8",
-            button_secondary_text_color_dark="#8B92A8",
-        )
-
-
-dark_mode_js = """
-function forceDarkMode() {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark');
-    const gc = document.querySelector('.gradio-container');
-    if (gc) gc.classList.add('dark');
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has('__theme')) {
-        params.set('__theme', 'dark');
-        window.history.replaceState({}, '', window.location.pathname + '?' + params.toString());
-    }
-}
-forceDarkMode();
-"""
-
-
-# ========== GRADIO UI ==========
-with gr.Blocks(title="HAQ - Pakistan Legal AI", theme=DarkTheme(), js=dark_mode_js, css=CSS) as demo:
-
-    gr.HTML("""
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <div class="haq-header">
-        <div class="haq-logo-row"><div class="haq-emblem">&#9878;</div><div class="haq-title">HAQ</div></div>
-        <div class="haq-sub">Pakistan Legal AI &nbsp;&middot;&nbsp; Apna Haq Jaano</div>
-        <div class="haq-stats">
-            <div class="stat"><span class="stat-num">4000+</span><span class="stat-lbl">Laws</span></div>
-            <div class="stat"><span class="stat-num">100+</span><span class="stat-lbl">Acts</span></div>
-            <div class="stat"><span class="stat-num">2</span><span class="stat-lbl">Languages</span></div>
-            <div class="stat"><span class="stat-num">Free</span><span class="stat-lbl">Always</span></div>
-        </div>
-        <div class="haq-pills">
-            <span class="pill">Constitution</span><span class="pill">PPC &amp; CrPC</span>
-            <span class="pill">Family Law</span><span class="pill">Labour</span>
-            <span class="pill">Property</span><span class="pill">Cybercrime</span>
-            <span class="pill">Contract</span><span class="pill">Banking</span>
-        </div>
-        <div class="verify-strip">&#10003; Every Answer Includes Official Law Verification Links</div>
-        <div class="disclaimer">&#9888; General legal information only. For court cases always consult a licensed Vakeel (lawyer).</div>
-        <div class="dev-line">Developed by <span>Shahrukh Hussain</span> &mdash; Sukkur, Sindh</div>
-    </div>""")
-
-    with gr.Tabs(elem_classes="tab-nav"):
-
-        # ── TAB 1: CHAT ──
-        with gr.Tab("💬 Ask HAQ"):
-            gr.HTML("""
-            <div style='height:8px'></div>
-            <div class='info-banner'>
-                <div class='info-banner-title'>💬 Multi-Turn Legal Conversation</div>
-                <div class='info-banner-text'>
-                    Ask your question — then ask follow-ups like
-                    <b>"What if he doesn't comply?"</b> or <b>"Phir kya hoga?"</b>
-                    HAQ remembers the full conversation. Urdu &amp; English both work.
-                </div>
-            </div>""")
-            gr.HTML("""
-            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.08);
-                        border:1px solid rgba(16,185,129,0.2);border-radius:100px;padding:5px 14px;
-                        font-size:11px;font-weight:600;color:#10b981;margin-bottom:12px;">
-                <span style="width:8px;height:8px;background:#10b981;border-radius:50%;display:inline-block;"></span>
-                HAQ remembers your full conversation — ask follow-ups freely
-            </div>""")
-
-            chat_history = gr.State([])
-            chatbot = gr.Chatbot(value=[], label="", height=480, show_label=False)
-
-            with gr.Row():
-                chat_input = gr.Textbox(
-                    placeholder="Apna legal sawal likhein... e.g. 'Police ne bina warrant arrest kiya' ya 'What is Section 302?'",
-                    show_label=False, lines=2, max_lines=5, scale=8,
-                )
-                send_btn = gr.Button("Send ⚖", variant="primary", scale=1, min_width=100)
-
-            with gr.Row():
-                with gr.Column(scale=1):
-                    voice_status = gr.Textbox(
-                        value="🎙️ Click mic → Speak → Stop → HAQ listens",
-                        show_label=False, interactive=False, elem_classes="voice-status",
-                    )
-                with gr.Column(scale=1):
-                    # FIXED: removed invalid 'editable' and 'buttons' parameters
-                    voice_recorder = gr.Audio(
-                        sources=["microphone"],
-                        type="filepath",
-                        label="",
-                        show_label=False,
-                        waveform_options={"waveform_color": "#D4AF37", "waveform_progress_color": "#B8960C"},
-                    )
-
-            verify_html = gr.HTML()
-
-            # FIXED: removed invalid 'buttons=[]' parameter; tts_audio appears ONCE in outputs
-            tts_audio = gr.Audio(
-                label="🔊 HAQ is speaking...",
-                autoplay=True,
-                interactive=False,
-                elem_classes="tts-audio",
-                visible=False,
-            )
-            tts_status = gr.Textbox(value="", show_label=False, interactive=False, visible=False)
-
-            with gr.Row():
-                clear_btn = gr.Button("🗑 Clear Chat", variant="secondary")
-                tts_btn   = gr.Button("🔊 Listen to Answer", variant="secondary")
-
-            gr.HTML("<div style='color:#5A6278;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;'>Was this helpful?</div>")
-            with gr.Row():
-                good_btn = gr.Button("👍 Yes, helpful!", variant="secondary")
-                bad_btn  = gr.Button("👎 Needs improvement", variant="secondary")
-            feedback_out = gr.Textbox(label="", interactive=False)
-
-            gr.HTML("<div style='color:#5A6278;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;'>Try these examples — then ask follow-ups:</div>")
-            with gr.Row():
-                ex1 = gr.Button("🚔 Police arrested me",    variant="secondary")
-                ex2 = gr.Button("⚖ Section 302 kya hai?", variant="secondary")
-                ex3 = gr.Button("📋 FIR kaise karein?",    variant="secondary")
-                ex4 = gr.Button("💔 Khula ka tarika?",     variant="secondary")
-            with gr.Row():
-                ex5 = gr.Button("💼 Salary nahi mili",     variant="secondary")
-                ex6 = gr.Button("🏠 Zameen ka jhagra",     variant="secondary")
-                ex7 = gr.Button("💻 Online harassment?",   variant="secondary")
-                ex8 = gr.Button("📝 Contract broken?",     variant="secondary")
-
-            # ── helpers ──
-            def tuples_to_messages(history):
-                msgs = []
-                for u, b in history:
-                    if u: msgs.append({"role": "user",      "content": str(u)})
-                    if b: msgs.append({"role": "assistant", "content": str(b)})
-                return msgs
-
-            def respond(message, history):
-                if not message or not message.strip():
-                    return tuples_to_messages(history), history, "", ""
-                history, _ = chat_with_haq(message, history)
-                last_answer = history[-1][1] if history else ""
-                return tuples_to_messages(history), history, "", build_verify_html(last_answer)
-
-            def clear_chat():
-                return [], [], "", ""
-
-            # FIXED: tts_audio appears only once in outputs
-            def play_tts(history):
-                if not history:
-                    return gr.update(visible=False), "No answer to speak."
-                last_answer = history[-1][1] if history[-1][1] else None
-                if not last_answer:
-                    return gr.update(visible=False), "No answer to speak."
-                audio_path = text_to_speech(last_answer)
-                if audio_path:
-                    return gr.update(visible=True, value=audio_path), ""
-                return gr.update(visible=False), "Voice output unavailable. Install edge-tts: pip install edge-tts"
-
-            # FIXED: on_voice_recorded returns 5 values (adds voice_status);
-            #        removed duplicate stop_recording handler
-            def on_voice_recorded(audio_path, history):
-                if not audio_path:
-                    return tuples_to_messages(history), history, "", "", "⚠️ No audio captured."
-                transcribed = transcribe_voice(audio_path)
-                if transcribed.startswith("⚠️"):
-                    return tuples_to_messages(history), history, transcribed, "", f"❌ {transcribed}"
-                history_updated, _ = chat_with_haq(transcribed, history)
-                last_answer = history_updated[-1][1] if history_updated else ""
-                verify = build_verify_html(last_answer)
-                return tuples_to_messages(history_updated), history_updated, "", verify, "✓ Done."
-
-            # ── event bindings ──
-            send_btn.click(respond, [chat_input, chat_history], [chatbot, chat_history, chat_input, verify_html])
-            chat_input.submit(respond, [chat_input, chat_history], [chatbot, chat_history, chat_input, verify_html])
-
-            tts_btn.click(play_tts, [chat_history], [tts_audio, tts_status])
-
-            clear_btn.click(clear_chat, outputs=[chatbot, chat_history, verify_html, tts_status])
-
-            # FIXED: single stop_recording handler (removed duplicate)
-            voice_recorder.start_recording(
-                lambda: "🔴 Recording... Speak your legal question clearly",
-                outputs=voice_status,
-            )
-            voice_recorder.stop_recording(
-                on_voice_recorded,
-                inputs=[voice_recorder, chat_history],
-                outputs=[chatbot, chat_history, chat_input, verify_html, voice_status],
-            )
-
-            good_btn.click(lambda h: save_feedback(h, "good"), [chat_history], feedback_out)
-            bad_btn.click( lambda h: save_feedback(h, "bad"),  [chat_history], feedback_out)
-
-            ex1.click(lambda: "Police ne mujhe bina warrant arrest kiya. Mera kya haq hai?", outputs=chat_input)
-            ex2.click(lambda: "Section 302 PPC kya hai aur uski saza kya hai?",              outputs=chat_input)
-            ex3.click(lambda: "FIR kaise darj karein? Police refuse kar rahi hai.",           outputs=chat_input)
-            ex4.click(lambda: "Main khula lena chahti hun, kya mujhe shohar ki ijazat chahiye?", outputs=chat_input)
-            ex5.click(lambda: "Employer ne 3 mahine se salary nahi di. Mera kya haq hai?",   outputs=chat_input)
-            ex6.click(lambda: "Koi meri zameen pe kabza kar raha hai. Kya karun?",            outputs=chat_input)
-            ex7.click(lambda: "Koi mujhe online harass kar raha hai. PECA ke tehat kya action le sakta hun?", outputs=chat_input)
-            ex8.click(lambda: "Someone broke a contract with me. What can I do legally in Pakistan?", outputs=chat_input)
-
-        # ── TAB 2: KNOW YOUR RIGHTS ──
-        with gr.Tab("Know Your Rights"):
-            gr.HTML("""
-            <div style='height:4px'></div>
-            <div class='info-banner'>
-                <div class='info-banner-title'>Know Your Legal Rights</div>
-                <div class='info-banner-text'>Select your situation — HAQ explains all your rights with exact law citations.</div>
-            </div>""")
-            situation_r = gr.Radio(choices=[
-                "Police arrested me without warrant",
-                "Landlord evicted me illegally",
-                "Employer did not pay my salary",
-                "I am a cybercrime or harassment victim",
-                "I want to file for divorce or khula",
-                "I have a property dispute",
-                "I received a court notice I don't understand",
-                "Child custody issue after divorce",
-                "Bank is harassing me for loan",
-                "I am a victim of workplace harassment",
-            ], label="Select Your Situation")
-            rights_btn    = gr.Button("Tell Me My Legal Rights", variant="primary")
-            rights_output = gr.Textbox(lines=16, label="Your Rights and Next Steps", elem_classes="answer-box")
-            rights_verify = gr.HTML()
-            rights_btn.click(get_rights, inputs=situation_r, outputs=[rights_output, rights_verify])
-
-        # ── TAB 3: LEGAL LETTER ──
-        with gr.Tab("Legal Letter"):
-            gr.HTML("""
-            <div style='height:4px'></div>
-            <div class='info-banner'>
-                <div class='info-banner-title'>📄 Free Professional Legal Notice Generator</div>
-                <div class='info-banner-text'>
-                    HAQ generates a <b>professional Pakistani legal notice</b> with exact law citations.
-                    Download as <b>PDF</b> or <b>Word (.docx)</b>. Saves Rs 5,000–10,000 in lawyer fees.
-                </div>
-            </div>""")
-            with gr.Row():
-                your_name  = gr.Textbox(label="Your Full Name",     placeholder="Muhammad Ali Khan")
-                other_name = gr.Textbox(label="Other Party Name",   placeholder="Mr. Ahmed (Landlord)")
-            your_address = gr.Textbox(label="Your Address", placeholder="House 123, Street 4, Sukkur, Sindh")
-            letter_type  = gr.Dropdown(choices=[
-                "Legal Notice to Landlord for Illegal Eviction",
-                "Legal Notice to Employer for Unpaid Salary",
-                "Legal Notice for Breach of Contract",
-                "Complaint Letter to Police for FIR Registration",
-                "Legal Notice to Online Harasser",
-                "Legal Notice for Property Dispute / Land Grabbing",
-                "Complaint to Labour Court",
-                "Legal Notice for Loan Harassment by Bank",
-                "Legal Notice for Recovery of Money",
-                "Legal Notice for Defamation",
-            ], label="Select Letter Type")
-            situation_desc = gr.Textbox(lines=4, label="Describe Your Situation",
-                placeholder="What happened? Include dates, amounts, names, and what outcome you want...")
-            letter_btn     = gr.Button("⚖ Generate Professional Legal Notice", variant="primary")
-            letter_output  = gr.Textbox(lines=24, label="Your Legal Notice — Professional Format", elem_classes="answer-box")
-            letter_verify  = gr.HTML()
-            gr.HTML("""<div class='download-banner'><div class='download-title'>📥 Download Your Legal Notice</div></div>""")
-            with gr.Row():
-                pdf_download  = gr.File(label="📄 Download PDF (Print-ready)")
-                docx_download = gr.File(label="📝 Download Word (.docx) (Editable)")
-            gr.HTML("<div style='color:#5A6278;font-size:11px;text-align:center;margin-top:8px;'>Send via <b>Registered Post A.D.</b> Keep the receipt as legal proof.</div>")
-            letter_btn.click(
-                generate_letter,
-                inputs=[situation_desc, letter_type, your_name, other_name, your_address],
-                outputs=[letter_output, letter_verify, pdf_download, docx_download],
-            )
-
-        # ── TAB 4: DOCUMENT ANALYSIS ──
-        with gr.Tab("📄 Analyze Document"):
-            gr.HTML("""
-            <div style='height:4px'></div>
-            <div class='info-banner'>
-                <div class='info-banner-title'>📄 Document Upload & Legal Analysis</div>
-                <div class='info-banner-text'>
-                    Upload any legal document — <b>court notices, FIR copies, contracts, agreements, legal notices</b>.<br>
-                    HAQ uses <b>pdfplumber</b> for digital PDFs and <b>OCR (Tesseract)</b> for scanned documents.
-                    Supports <b>PDF, PNG, JPG, GIF, BMP, TIFF, TXT</b>.
-                </div>
-            </div>""")
-            with gr.Row():
-                with gr.Column(scale=1):
-                    doc_upload = gr.File(
-                        label="Upload Your Document",
-                        file_types=[".pdf",".png",".jpg",".jpeg",".gif",".bmp",".tiff",".txt",".md"],
-                        type="filepath",
-                    )
-                with gr.Column(scale=1):
-                    doc_type = gr.Dropdown(
-                        choices=[
-                            "Court Notice / Summons",
-                            "FIR Copy (First Information Report)",
-                            "Contract / Agreement",
-                            "Legal Notice Received",
-                            "Property Document / Deed",
-                            "Employment Letter / Contract",
-                            "Rent Agreement / Lease",
-                            "Bank / Loan Document",
-                            "Divorce / Khula Papers",
-                            "Other Legal Document",
-                        ],
-                        label="What type of document is this?",
-                        value="Other Legal Document",
-                    )
-            analyze_doc_btn       = gr.Button("🔍 Analyze My Document", variant="primary")
-            doc_status            = gr.Textbox(label="Processing Status", value="Upload a document and select its type, then click Analyze.", interactive=False)
-            doc_analysis_output   = gr.Textbox(lines=28, label="HAQ's Legal Analysis", elem_classes="answer-box", interactive=False)
-            doc_extracted_preview = gr.Textbox(lines=8,  label="Extracted Text Preview", elem_classes="answer-box", interactive=False)
-            doc_verify            = gr.HTML()
-
-            gr.HTML("""
-            <div style="margin-top:12px;padding:12px 16px;background:rgba(243,156,18,0.05);
-                        border:1px solid rgba(243,156,18,0.15);border-radius:12px;">
-                <div style="color:#F39C12;font-size:12px;font-weight:700;">⚠️ Tips for Best Results</div>
-                <div style="color:#5A6278;font-size:11px;line-height:1.7;margin-top:6px;">
-                    • <b>Digital PDFs</b> (not scanned) extract instantly and accurately.<br>
-                    • <b>Scanned documents / photos</b>: use 300 DPI+, good lighting, no shadows.<br>
-                    • <b>Blurry or handwritten</b> documents may extract poorly — type key text in chat instead.<br>
-                    • Max recommended file size: 10MB. Password-protected PDFs cannot be read.<br>
-                    • This analysis is informational only. Always consult a licensed Vakeel for official legal advice.
-                </div>
-            </div>""")
-
-            # FIXED: early return now has 4 values matching 4 outputs
-            def handle_document_analysis(file_path, doc_type_val):
-                if not file_path:
-                    return "Please upload a document first.", "", "", ""
-                analysis, preview = process_uploaded_document(file_path, doc_type_val)
-                if analysis.startswith("⚠️"):
-                    status = "❌ Extraction failed — see analysis for details."
-                else:
-                    status = "✓ Document analyzed successfully."
-                verify = build_verify_html(analysis)
-                return status, analysis, preview or "", verify
-
-            analyze_doc_btn.click(
-                handle_document_analysis,
-                inputs=[doc_upload, doc_type],
-                outputs=[doc_status, doc_analysis_output, doc_extracted_preview, doc_verify],
-            )
-
-        # ── TAB 5: LOCATION HELP ──
-        with gr.Tab("📍 Location Help"):
-            gr.HTML("""
-            <div style='height:4px'></div>
-            <div class='info-banner'>
-                <div class='info-banner-title'>📍 Location-Based Legal Help</div>
-                <div class='info-banner-text'>
-                    Auto-detect your city or select manually. HAQ shows nearest courts, police stations,
-                    free legal aid centres, local lawyer contacts, and <b>provincial law variations</b>.
-                </div>
-            </div>""")
-            with gr.Row():
-                with gr.Column(scale=1):
-                    auto_detect_btn = gr.Button("📍 Auto-Detect My Location", variant="primary")
-                with gr.Column(scale=2):
-                    city_dropdown = gr.Dropdown(
-                        choices=sorted(list(PAKISTAN_CITIES.keys())),
-                        label="Or Select Your City Manually",
-                        value="Islamabad",
-                    )
-            location_hidden = gr.Textbox(visible=False)
-            location_status = gr.Textbox(label="Detection Status", value="Click 'Auto-Detect' or select city manually", interactive=False)
-            location_output = gr.Textbox(lines=32, label="Your Local Legal Resources & Provincial Laws",
-                                         elem_classes="answer-box", interactive=False,
-                                         value=get_location_help("Islamabad"))
-            gr.HTML("""
-            <div style="margin-top:12px;padding:12px 16px;background:rgba(243,156,18,0.05);
-                        border:1px solid rgba(243,156,18,0.15);border-radius:12px;">
-                <div style="color:#F39C12;font-size:12px;font-weight:700;">⚠️ Important Notice</div>
-                <div style="color:#5A6278;font-size:11px;line-height:1.7;margin-top:6px;">
-                    • Phone numbers are for government legal aid services and bar councils — not private lawyers.<br>
-                    • Provincial laws change frequently. Always verify current rules with a local Vakeel.<br>
-                    • For emergencies: Police <b>15</b> · Rescue <b>1122</b> · Women Helpline <b>1043</b> (Punjab).
-                </div>
-            </div>""")
-
-            auto_detect_btn.click(
-                None, inputs=[], outputs=[location_hidden],
-                js="""async () => {
-                    if (!navigator.geolocation) return 'manual';
-                    try {
-                        const pos = await new Promise((res, rej) =>
-                            navigator.geolocation.getCurrentPosition(res, rej, {timeout:10000}));
-                        return pos.coords.latitude + ',' + pos.coords.longitude;
-                    } catch(e) { return 'manual'; }
-                }""",
-            )
-            location_hidden.change(process_auto_location, inputs=[location_hidden], outputs=[location_status, location_output])
-            city_dropdown.change(
-                lambda city: (f"Selected: {city}", get_location_help(city)),
-                inputs=[city_dropdown], outputs=[location_status, location_output],
-            )
-
-        # ── TAB 6: ABOUT ──
-        with gr.Tab("About HAQ"):
-            gr.HTML("<div style='height:4px'></div>")
-            gr.Markdown("""
-## What is HAQ?
-**HAQ** means "Right" in Urdu. Pakistan's first **RAG-based AI legal assistant** with **multi-turn conversation** — ask follow-up questions and HAQ remembers your full case context.
-
-### Features Overview
-| Feature | Description |
-|:---|:---|
-| **💬 Multi-Turn Chat** | Ask follow-ups, HAQ remembers your full case context |
-| **📄 Document Analysis** | Upload court notices, FIRs, contracts — HAQ explains them |
-| **⚖ Legal Letter Generator** | Professional legal notices with PDF + DOCX download |
-| **📍 Location Help** | Nearest courts, police, legal aid + provincial law variations |
-| **🎙️ Voice Input** | Speak your question in Urdu or English (Whisper-large-v3) |
-| **🔊 Voice Output** | Microsoft Neural TTS (edge-tts) — Urdu & English |
-
-### Document Analysis
-| Input Type | Extraction Method |
-|:---|:---|
-| Digital PDF | pdfplumber (fast, accurate, table support) |
-| Scanned PDF | pdf2image + Tesseract OCR (eng+urd) |
-| Image (PNG/JPG etc.) | Tesseract OCR with preprocessing |
-| Text file | Direct read |
-
-### Laws Covered (100+ Acts)
-| Category | Coverage |
-|:---|:---|
-| **Constitutional** | Constitution 1973 + all amendments |
-| **Criminal** | PPC 1860, CrPC 1898, Anti-Terrorism Act |
-| **Family** | MFLO 1961, DMMA 1939, Family Courts Acts |
-| **Digital** | PECA 2016, Electronic Transactions Ordinance |
-| **Labour** | EOBI, Minimum Wages, Workmen Compensation |
-| **Property** | Transfer of Property Act, Registration Act |
-| **Commercial** | Contract Act 1872, Banking Laws |
-
-> HAQ provides **general legal information** only.
-> For court cases, always consult a licensed Vakeel (lawyer).
-
-**Shahrukh Hussain** — Student, Sukkur, Sindh
-*"Apna Haq Jaano" — Because 90% of Pakistanis cannot afford a lawyer.*
-""")
-
-
-demo.launch(
-    server_name="0.0.0.0",
-    server_port=7860,
-    show_error=True,
-)
+  <sub>⭐ Star the repo if HAQ helped you — it genuinely matters.</sub><br/>
+  <sub>Built with ❤️ for Pakistan 🇵🇰</sub>
+</div>
